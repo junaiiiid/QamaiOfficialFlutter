@@ -218,6 +218,7 @@ class _FirebaseProfilePictureState extends State<FirebaseProfilePicture> {
           if (snapshot.hasData) {
             var userDocument = snapshot.data;
             final title = userDocument['ProfilePicture'];
+            pictureurl = title;
             return CircleAvatar(
               minRadius: 30,
               maxRadius: 60,
@@ -258,7 +259,9 @@ class ProposalProfilePicture extends StatelessWidget {
   final Category;
   final EmployerID;
 
-  ProposalProfilePicture(this.Category, this.EmployerID);
+  final radius;
+
+  ProposalProfilePicture(this.Category, this.EmployerID, {this.radius = 20.0});
 
   @override
   Widget build(BuildContext context) {
@@ -295,10 +298,12 @@ class ProposalProfilePicture extends StatelessWidget {
               return CircleAvatar(
                 backgroundImage: NetworkImage('$title'),
                 backgroundColor: QamaiThemeColor,
+                radius: radius,
               );
             } else {
               return CircleAvatar(
                 backgroundColor: QamaiThemeColor,
+                radius: radius,
               );
             }
           });

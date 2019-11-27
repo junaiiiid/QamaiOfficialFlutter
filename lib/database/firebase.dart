@@ -17,6 +17,8 @@ import 'package:qamai_official/screens/login_screen.dart';
 
 final _Auth = FirebaseAuth.instance;
 final firestore = Firestore.instance;
+String pictureurl;
+
 
 Future Register(BuildContext context) async {
   try {
@@ -256,8 +258,8 @@ Future Update(BuildContext context) async {
                 fontSize: 18)),
         context: context,
         title: storytitle,
-        image: Image.asset(
-          'images/dpmale.png',
+        image: Image.network(
+          pictureurl,
           width: 200,
         ),
         content: Column(

@@ -194,7 +194,8 @@ class _ProposalCardState extends State<ProposalCard> {
               builder: (context) => ProposalProfile(
                   widget.userDocument,
                   ProposalProfilePicture(
-                      widget.Category, widget.userDocument['EmployerID']),
+                    widget.Category, widget.userDocument['EmployerID'],
+                    radius: 60.0,),
                   widget.button)),
         );
       },
