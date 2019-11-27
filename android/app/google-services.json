@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "907926123681",
+    "firebase_url": "https://qamai-official-5cd60.firebaseio.com",
+    "project_id": "qamai-official-5cd60",
+    "storage_bucket": "qamai-official-5cd60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907926123681:android:27b7ab4fc7f948d1e8ece0",
+        "android_client_info": {
+          "package_name": "com.qamai.qamai_official"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907926123681-c8oh3tabumlh6eb73ed79tr12bmc8bvg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOw1zCUZ6ykbYMxG4mEFW7b4TrMj0jiMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907926123681-c8oh3tabumlh6eb73ed79tr12bmc8bvg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
