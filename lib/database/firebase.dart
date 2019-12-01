@@ -225,6 +225,8 @@ Future ResetPassword(BuildContext context) async {
 
 Future LogOut(BuildContext context) async {
   await _Auth.signOut();
+  ThemeService themeService = Provider.of<ThemeService>(context);
+  themeService.switchToThemeA();
   Navigator.pop(context);
   Navigator.pop(context);
   Navigator.pushNamed(context, WelcomeScreen.id);
