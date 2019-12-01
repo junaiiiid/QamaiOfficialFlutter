@@ -11,6 +11,8 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
 
+ThemeService themeService;
+
 void main() {
   runApp(Theme());
 }
@@ -39,7 +41,7 @@ class _ThemeState extends State<Theme> {
     return ChangeNotifierProvider(
         create: (_) => ThemeService(),
         child: Builder(builder: (BuildContext context) {
-          ThemeService themeService = Provider.of<ThemeService>(context);
+          themeService = Provider.of<ThemeService>(context);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: themeService.currentTheme,

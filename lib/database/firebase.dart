@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:qamai_official/screens/forgot_password.dart';
 import 'package:qamai_official/screens/welcome_screen.dart';
+import 'package:qamai_official/theme.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:qamai_official/containers/modules/user_information.dart';
@@ -14,6 +15,8 @@ import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/modules/alert_strings.dart';
 import 'package:qamai_official/screens/login_screen.dart';
+import 'package:provider/provider.dart';
+
 
 final _Auth = FirebaseAuth.instance;
 final firestore = Firestore.instance;
@@ -118,11 +121,13 @@ Future Register(BuildContext context) async {
 }
 
 Future LogIn(BuildContext context) async {
+  ThemeService themeService = Provider.of<ThemeService>(context);
   try {
     FirebaseUser user = (await _Auth.signInWithEmailAndPassword(
-            email: getEmail(), password: getPass()))
+        email: getEmail(), password: getPass()))
         .user;
     if (user.isEmailVerified) {
+      themeService.switchToThemeB();
       Navigator.pushNamed(context, HomeScreen.id);
       //Navigator.pushNamed(context, HomeScreen.id);
       ClearAllInfo();

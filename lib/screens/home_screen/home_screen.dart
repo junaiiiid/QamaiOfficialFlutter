@@ -12,7 +12,7 @@ import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/rada
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:provider/provider.dart';
 import 'package:qamai_official/theme.dart';
-
+import 'package:qamai_official/main.dart';
 
 Widget body;
 
@@ -42,107 +42,94 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => ThemeService(),
-        child: Builder(builder: (BuildContext context) {
-          ThemeService themeService = Provider.of<ThemeService>(context);
-          themeService.switchToThemeB();
-          return MaterialApp(
-            theme: themeService.currentTheme,
-            home: WillPopScope(
-              onWillPop: () async => false,
-              child: Scaffold(
-                appBar: AppBar(
-                  elevation: 0.0,
-                  leading: IconButton(
-                    icon: Icon(OMIcons.settings, color: QamaiThemeColor),
-                    onPressed: () {},
-                  ),
-                  actions: <Widget>[
-                    IconButton(
-                      icon: Icon(OMIcons.exitToApp, color: QamaiThemeColor),
-                      onPressed: () {
-                        logoutalert(context);
-                      },
-                    ),
-                  ],
-                  backgroundColor: White,
-                  title: Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(
-                          fontFamily: 'Raleway',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: QamaiThemeColor),
-                    ),
-                  ),
-                ),
-                bottomNavigationBar: CurvedNavigationBar(
-                  index: 0,
-                  backgroundColor: Colors.transparent,
-                  animationCurve: Curves.decelerate,
-                  buttonBackgroundColor: QamaiGreen,
-                  color: QamaiThemeColor,
-                  items: [
-                    Icon(
-                      OMIcons.home,
-                      color: White,
-                    ),
-                    Icon(
-                      OMIcons.search,
-                      color: White,
-                    ),
-                    Icon(
-                      OMIcons.myLocation,
-                      color: White,
-                    ),
-                    Icon(
-                      OMIcons.message,
-                      color: White,
-                    ),
-                    Icon(
-                      OMIcons.personOutline,
-                      color: White,
-                    ),
-                  ],
-                  onTap: (index) {
-                    switch (index) {
-                      case 1:
-                        setState(() {
-                          body = Search(
-                          );
-                        });
-                        break;
-
-                      case 2:
-                        setState(() {
-                          body = RadarMap(
-                          );
-                        });
-                        break;
-
-                      case 3:
-                        setState(() {
-                          body = Inbox(
-                          );
-                        });
-                        break;
-
-                      case 4:
-                        setState(() {
-                          body = Profile(
-                          );
-                        });
-                        break;
-                    }
-                  },
-                ),
-                body: body,
-              ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: IconButton(
+            icon: Icon(OMIcons.settings, color: QamaiThemeColor),
+            onPressed: () {},
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(OMIcons.exitToApp, color: QamaiThemeColor),
+              onPressed: () {
+                logoutalert(context);
+              },
             ),
-          );
-        }));
+          ],
+          backgroundColor: White,
+          title: Center(
+            child: Text(
+              '',
+              style: TextStyle(
+                  fontFamily: 'Raleway',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: QamaiThemeColor),
+            ),
+          ),
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          index: 0,
+          backgroundColor: Colors.transparent,
+          animationCurve: Curves.decelerate,
+          buttonBackgroundColor: QamaiGreen,
+          color: QamaiThemeColor,
+          items: [
+            Icon(
+              OMIcons.home,
+              color: White,
+            ),
+            Icon(
+              OMIcons.search,
+              color: White,
+            ),
+            Icon(
+              OMIcons.myLocation,
+              color: White,
+            ),
+            Icon(
+              OMIcons.message,
+              color: White,
+            ),
+            Icon(
+              OMIcons.personOutline,
+              color: White,
+            ),
+          ],
+          onTap: (index) {
+            switch (index) {
+              case 1:
+                setState(() {
+                  body = Search();
+                });
+                break;
+
+              case 2:
+                setState(() {
+                  body = RadarMap();
+                });
+                break;
+
+              case 3:
+                setState(() {
+                  body = Inbox();
+                });
+                break;
+
+              case 4:
+                setState(() {
+                  body = Profile();
+                });
+                break;
+            }
+          },
+        ),
+        body: body,
+      ),
+    );
   }
 }
 
