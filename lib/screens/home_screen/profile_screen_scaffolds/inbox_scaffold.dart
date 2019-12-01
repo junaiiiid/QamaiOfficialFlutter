@@ -6,9 +6,7 @@ import 'package:qamai_official/screens/home_screen/home_screen_containers/sent_w
 
 
 class Inbox extends StatelessWidget {
-  final BuildContext mycontext;
 
-  Inbox(this.mycontext);
 
   @override
   Widget build(BuildContext context) {

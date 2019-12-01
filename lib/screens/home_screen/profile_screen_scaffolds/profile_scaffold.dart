@@ -12,9 +12,8 @@ import 'package:qamai_official/database/phone_and_email.dart';
 
 
 class Profile extends StatefulWidget {
-  final BuildContext context;
 
-  Profile({Key key, this.context}) : super(key: key);
+  Profile({Key key}) : super(key: key);
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -36,7 +35,7 @@ class _ProfileState extends State<Profile> {
             preferredSize: Size.fromHeight(180),
             child: Column(
               children: <Widget>[
-                ProfileOverview(buildcontext: widget.context,),
+                ProfileOverview(),
                 TabBar(
                   indicatorColor:QamaiGreen,
                   unselectedLabelColor: QamaiThemeColor,
@@ -67,7 +66,7 @@ class _ProfileState extends State<Profile> {
           ),
           body: TabBarView(
             children: <Widget>[
-              ProfileList(buildcontext: widget.context,),
+              ProfileList(),
               WorkList(),
               ReviewsList(),
             ],

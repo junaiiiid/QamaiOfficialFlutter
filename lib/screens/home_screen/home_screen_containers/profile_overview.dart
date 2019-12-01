@@ -14,9 +14,8 @@ import 'package:image_cropper/image_cropper.dart';
 
 
 class ProfileOverview extends StatefulWidget {
-  final BuildContext buildcontext;
 
-  ProfileOverview({Key key, this.buildcontext}) : super(key: key);
+  ProfileOverview({Key key,}) : super(key: key);
 
   @override
   _ProfileOverviewState createState() => _ProfileOverviewState();
@@ -62,10 +61,11 @@ class _ProfileOverviewState extends State<ProfileOverview> {
     StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child("ProfilePicture/$fileName");
     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
     StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
-    Toast.show("Profile Picture Uploaded", widget.buildcontext, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+    Toast.show("Profile Picture Uploaded", context, duration: Toast.LENGTH_LONG,
+        gravity: Toast.BOTTOM);
     String url = (await firebaseStorageRef.getDownloadURL()).toString();
     setimageURL(url);
-    UpdateProfilePicture(widget.buildcontext, url);
+    UpdateProfilePicture(context, url);
   }
 
   @override
@@ -76,7 +76,7 @@ class _ProfileOverviewState extends State<ProfileOverview> {
         children: <Widget>[
           FlatButton(
             onPressed: (){
-              uploadPic(widget.buildcontext);
+              uploadPic(context);
             },
             child: FirebaseProfilePicture(),
           ),
@@ -110,7 +110,7 @@ class _ProfileOverviewState extends State<ProfileOverview> {
                     size: 25.0,
                   ),
                   onPressed: () {
-                    Update(widget.buildcontext);
+                    Update(context);
                   },
                 ),
               ),

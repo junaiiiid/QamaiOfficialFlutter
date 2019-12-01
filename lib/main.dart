@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/public_profile_view.dart';
 import 'constants.dart';
 import 'screens/splash_screen.dart';
 import 'screens/welcome_screen.dart';
@@ -9,6 +8,8 @@ import 'screens/signup_screen.dart';
 import 'screens/signup_screen2.dart';
 import 'screens/home_screen/home_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(Theme());
@@ -35,30 +36,24 @@ class _ThemeState extends State<Theme> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: QamaiThemeColor,
-        scaffoldBackgroundColor: QamaiThemeColor,
-        fontFamily: 'Raleway',
-        hintColor: White,
-        textSelectionColor: White,
-        primaryTextTheme: Typography(platform: TargetPlatform.iOS).white,
-        textTheme: Typography(platform: TargetPlatform.iOS).white,
-        appBarTheme: AppBarTheme(
-          color: BlackMaterial,
-        ),
-      ),
-      initialRoute: SplashScreen.id,
-      routes: {
-        SplashScreen.id: (context) => SplashScreen(),
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        ForgotPasswordScreen.id: (context) => ForgotPasswordScreen(),
-        SignupScreen.id: (context) => SignupScreen(),
-        SignupScreen2.id: (context) => SignupScreen2(),
-        HomeScreen.id: (context) => HomeScreen(),
-      },
-    );
+    return ChangeNotifierProvider(
+        create: (_) => ThemeService(),
+        child: Builder(builder: (BuildContext context) {
+          ThemeService themeService = Provider.of<ThemeService>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeService.currentTheme,
+            initialRoute: SplashScreen.id,
+            routes: {
+              SplashScreen.id: (context) => SplashScreen(),
+              WelcomeScreen.id: (context) => WelcomeScreen(),
+              LoginScreen.id: (context) => LoginScreen(),
+              ForgotPasswordScreen.id: (context) => ForgotPasswordScreen(),
+              SignupScreen.id: (context) => SignupScreen(),
+              SignupScreen2.id: (context) => SignupScreen2(),
+              HomeScreen.id: (context) => HomeScreen(),
+            },
+          );
+        }));
   }
 }

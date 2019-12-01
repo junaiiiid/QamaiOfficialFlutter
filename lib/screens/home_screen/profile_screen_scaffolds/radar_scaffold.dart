@@ -4,9 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class RadarMap extends StatefulWidget {
-  final BuildContext context;
 
-  RadarMap({Key key, this.context}) : super(key: key);
+  RadarMap({Key key}) : super(key: key);
   @override
   _RadarMapState createState() => _RadarMapState();
 }
@@ -43,7 +42,7 @@ class MapSampleState extends State<MapSample> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);

@@ -234,7 +234,6 @@ Widget ExistingUser(BuildContext context) {
           /// is because there is user already logged
           if (user.isEmailVerified) {
             return HomeScreen(
-              buildcontext: context,
             );
           }
         }

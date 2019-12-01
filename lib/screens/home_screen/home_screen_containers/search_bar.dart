@@ -7,8 +7,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:qamai_official/screens/home_screen/home_screen_containers/search_result.dart';
 
 class MySearchBar extends StatefulWidget {
-  final BuildContext context;
-  MySearchBar(this.context);
   @override
   _MySearchBarState createState() => _MySearchBarState();
 }
