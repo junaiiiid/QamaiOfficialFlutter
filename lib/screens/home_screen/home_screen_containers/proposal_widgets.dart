@@ -195,7 +195,7 @@ class _ProposalCardState extends State<ProposalCard> {
                   widget.userDocument,
                   ProposalProfilePicture(
                     widget.Category, widget.userDocument['EmployerID'],
-                    radius: 60.0,),
+                  ),
                   widget.button)),
         );
       },

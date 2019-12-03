@@ -12,7 +12,6 @@ import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/rada
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:provider/provider.dart';
 import 'package:qamai_official/theme.dart';
-import 'package:qamai_official/main.dart';
 
 Widget body;
 
