@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +48,7 @@ Future Register(BuildContext context) async {
     });
 
     user = (await _Auth.signInWithEmailAndPassword(
-            email: getEmail(), password: getPass()))
+        email: getEmail(), password: getPass()))
         .user;
 
     if (newUser != null) {
@@ -76,7 +78,7 @@ Future Register(BuildContext context) async {
             child: Text(
               "OK",
               style:
-                  TextStyle(color: White, fontSize: 15, fontFamily: 'Raleway'),
+              TextStyle(color: White, fontSize: 15, fontFamily: 'Raleway'),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -102,11 +104,11 @@ Future Register(BuildContext context) async {
         break;
       case 'ERROR_INVALID_EMAIL':
         firebaseErrorAlerts(context, InvalidRegEmailtitle, InvalidRegEmailtext,
-            () {
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, WelcomeScreen.id);
-          ClearAllInfo();
-        });
+                () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, WelcomeScreen.id);
+              ClearAllInfo();
+            });
         break;
       case 'ERROR_EMAIL_ALREADY_IN_USE':
         firebaseErrorAlerts(
@@ -129,7 +131,7 @@ Future LogIn(BuildContext context) async {
     if (user.isEmailVerified) {
       themeService.switchToThemeB();
       Navigator.pushNamed(context, HomeScreen.id);
-      //Navigator.pushNamed(context, HomeScreen.id);
+
       ClearAllInfo();
     } else {
       user.sendEmailVerification();
@@ -188,12 +190,11 @@ Future LogIn(BuildContext context) async {
 }
 
 Future ResetPassword(BuildContext context) async {
-
   bool is_caught=false;
 
   try {
     final newUser =
-        await _Auth.sendPasswordResetEmail(email: getRecoveryMail());
+    await _Auth.sendPasswordResetEmail(email: getRecoveryMail());
   } on PlatformException catch (e) {
     is_caught = true;
     switch (e.code) {
@@ -227,12 +228,14 @@ Future LogOut(BuildContext context) async {
   await _Auth.signOut();
   ThemeService themeService = Provider.of<ThemeService>(context);
   themeService.switchToThemeA();
+
   Navigator.pop(context);
   Navigator.pop(context);
   Navigator.pushNamed(context, WelcomeScreen.id);
 }
 
 Widget ExistingUser(BuildContext context) {
+  ThemeService themeService = Provider.of<ThemeService>(context);
   return FutureBuilder<FirebaseUser>(
       future: _Auth.currentUser(),
       builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
@@ -240,6 +243,7 @@ Widget ExistingUser(BuildContext context) {
           FirebaseUser user = snapshot.data; // this is your user instance
           /// is because there is user already logged
           if (user.isEmailVerified) {
+            themeService.switchToThemeB();
             return HomeScreen(
             );
           }
@@ -249,6 +253,7 @@ Widget ExistingUser(BuildContext context) {
         return WelcomeScreen();
       });
 }
+
 
 Future Update(BuildContext context) async {
   try {
@@ -356,42 +361,42 @@ Future PasswordChanger(BuildContext context) async {
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => AssetGiffyDialog(
-            onlyOkButton: true,
-            buttonOkColor: QamaiGreen,
-            buttonOkText: Text(
-              'Okay',
-              style: TextStyle(
-                  color: White,
-                  fontFamily: 'Raleway',
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600),
-            ),
-            cornerRadius: 10.0,
-            image: Image.asset(
-              'images/Password2.png',
-            ),
-            title: Text(
-              ResestPasstitle,
-              style: TextStyle(
-                  color: QamaiThemeColor,
-                  fontFamily: 'Montserrat',
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w800),
-            ),
-            description: Text(
-              'An Email has been sent to ${user.email} with instruction, on how to reset your password.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: QamaiThemeColor,
-                  fontFamily: 'Montserrat',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600),
-            ),
-            onOkButtonPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-          ));
+        onlyOkButton: true,
+        buttonOkColor: QamaiGreen,
+        buttonOkText: Text(
+          'Okay',
+          style: TextStyle(
+              color: White,
+              fontFamily: 'Raleway',
+              fontSize: 18.0,
+              fontWeight: FontWeight.w600),
+        ),
+        cornerRadius: 10.0,
+        image: Image.asset(
+          'images/Password2.png',
+        ),
+        title: Text(
+          ResestPasstitle,
+          style: TextStyle(
+              color: QamaiThemeColor,
+              fontFamily: 'Montserrat',
+              fontSize: 18.0,
+              fontWeight: FontWeight.w800),
+        ),
+        description: Text(
+          'An Email has been sent to ${user.email} with instruction, on how to reset your password.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: QamaiThemeColor,
+              fontFamily: 'Montserrat',
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600),
+        ),
+        onOkButtonPressed: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        },
+      ));
 }
 
 Future UpdateProfilePicture(BuildContext context, String url) async {
@@ -432,16 +437,14 @@ class SearchService {
 //UpdateJobsList returner
 
 Future AddJobs(Job) async {
-
-    firestore.collection(UserInformation).document(userid).updateData({
-      'JobList': FieldValue.arrayUnion([Job]),
-    });
+  firestore.collection(UserInformation).document(userid).updateData({
+    'JobList': FieldValue.arrayUnion([Job]),
+  });
 }
 
 //RemoveJobsList returner
 
 Future RemoveJobs(Job) async {
-
   firestore.collection(UserInformation).document(userid).updateData({
     'JobList': FieldValue.arrayRemove([Job]),
   });

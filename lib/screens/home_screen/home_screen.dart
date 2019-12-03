@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
+
 }
 
 void Initialize() {
@@ -34,11 +35,13 @@ void Initialize() {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+
     Initialize();
     getUser();
     getJobsList();
+    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +104,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
           onTap: (index) {
             switch (index) {
+              case 0:
+                setState(() {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
+                });
+                break;
+
               case 1:
                 setState(() {
                   body = Search();
