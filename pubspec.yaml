@@ -52,6 +52,8 @@ dependencies:
   google_maps_flutter: ^0.5.21+8
   provider: ^3.0.0+1
   percent_indicator: ^2.1.1+1
+  toggle_switch: ^0.1.4
+  lite_rolling_switch: ^0.1.1
 
 dev_dependencies:
   flutter_test:

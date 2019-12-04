@@ -406,6 +406,14 @@ Future UpdateProfilePicture(BuildContext context, String url) async {
   });
 }
 
+
+Future UpdateAvailability(bool value) async {
+  getUser();
+  firestore.collection('UserInformation').document(userid).updateData({
+    'online': value,
+  });
+}
+
 //SEARCHER
 
 class SearchService {

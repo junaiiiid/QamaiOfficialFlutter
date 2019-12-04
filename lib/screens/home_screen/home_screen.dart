@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
+import 'package:qamai_official/screens/home_screen/home_screen_containers/settings_dialog.dart';
 import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/home_scaffold.dart';
 import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -13,6 +14,7 @@ import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/rada
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:provider/provider.dart';
 import 'package:qamai_official/theme.dart';
+
 
 Widget body;
 int index = 0;
@@ -41,6 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
     getUser();
     getJobsList();
     super.initState();
+
+    body = Home();
+    index = 0;
   }
 
 
@@ -53,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0.0,
           leading: IconButton(
             icon: Icon(OMIcons.settings, color: QamaiThemeColor),
-            onPressed: () {},
+            onPressed: () {
+              settings(context);
+            },
           ),
           actions: <Widget>[
             IconButton(
@@ -116,24 +123,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
               case 1:
                 setState(() {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
                   body = Search();
                 });
                 break;
 
               case 2:
                 setState(() {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
                   body = RadarMap();
                 });
                 break;
 
               case 3:
                 setState(() {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
                   body = Inbox();
                 });
                 break;
 
               case 4:
                 setState(() {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
                   body = Profile();
                 });
                 break;

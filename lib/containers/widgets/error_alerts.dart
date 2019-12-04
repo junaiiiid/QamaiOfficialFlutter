@@ -5,7 +5,6 @@ import 'package:qamai_official/database/firebase.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 
 
-
 void firebaseErrorAlerts(BuildContext context,String title,String text,Function navigate,{type=AlertType.warning}){
   Alert(
     style: AlertStyle(
