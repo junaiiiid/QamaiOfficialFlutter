@@ -27,7 +27,7 @@ void settings(BuildContext context) {
         overlayColor: Colors.white54,
       ),
       context: context,
-      title: "✎ Settings",
+      title: "Settings",
       content: Column(
         children: <Widget>[
           Divider(
