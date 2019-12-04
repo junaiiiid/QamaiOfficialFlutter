@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
+import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/home_scaffold.dart';
 import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:qamai_official/theme.dart';
 
 Widget body;
+int index = 0;
 
 class HomeScreen extends StatefulWidget {
   static String id = 'HomeScreen';
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         bottomNavigationBar: CurvedNavigationBar(
-          index: 0,
+          index: index,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.decelerate,
           buttonBackgroundColor: QamaiGreen,
@@ -108,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ThemeService themeService = Provider.of<ThemeService>(
                       context);
                   themeService.switchToThemeB();
+                  body = Home();
                 });
                 break;
 

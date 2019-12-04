@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +43,8 @@ Future Register(BuildContext context) async {
       'NumberVerified': false,
       'FullName': '${getFirstName()} ${getLastName()}',
       'JobList':[],
+      'Interviews': [],
+      'online': true,
     });
 
     user = (await _Auth.signInWithEmailAndPassword(
@@ -193,7 +193,6 @@ Future ResetPassword(BuildContext context) async {
   bool is_caught=false;
 
   try {
-    final newUser =
     await _Auth.sendPasswordResetEmail(email: getRecoveryMail());
   } on PlatformException catch (e) {
     is_caught = true;
@@ -355,7 +354,7 @@ Future Update(BuildContext context) async {
 
 Future PasswordChanger(BuildContext context) async {
   FirebaseUser user = await _Auth.currentUser();
-  final newUser = await _Auth.sendPasswordResetEmail(email: user.email);
+  await _Auth.sendPasswordResetEmail(email: user.email);
 
   showDialog(
       barrierDismissible: false,
