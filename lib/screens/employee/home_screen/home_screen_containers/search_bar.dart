@@ -4,7 +4,7 @@ import 'package:qamai_official/constants.dart';
 import 'package:qamai_official/database/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/search_result.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_result.dart';
 
 class MySearchBar extends StatefulWidget {
   @override

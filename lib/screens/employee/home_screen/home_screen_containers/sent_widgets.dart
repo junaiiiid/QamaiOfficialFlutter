@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qamai_official/containers/widgets/button.dart';
 import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/proposal_widgets.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
 
 //SENT
 

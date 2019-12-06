@@ -1,9 +1,8 @@
-import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 

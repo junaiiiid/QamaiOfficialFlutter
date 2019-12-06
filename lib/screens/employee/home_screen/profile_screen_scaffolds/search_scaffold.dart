@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/search_bar.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/public_profile_view.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_bar.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/public_profile_view.dart';
 
 class Search extends StatefulWidget {
   Search({Key key}) : super(key: key);

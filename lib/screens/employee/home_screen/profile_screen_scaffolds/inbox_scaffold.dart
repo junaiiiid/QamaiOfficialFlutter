@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/proposal_widgets.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/sent_widgets.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/sent_widgets.dart';
 
 
 class Inbox extends StatelessWidget {

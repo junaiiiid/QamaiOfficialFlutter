@@ -5,9 +5,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
-import 'package:qamai_official/screens/home_screen/home_screen.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class Home extends StatelessWidget {
@@ -298,137 +295,112 @@ class _HomeProgressReportWidgetState extends State<HomeProgressReportWidget> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      GestureDetector(
-                        child: Container(
-                          height: 150,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: QamaiGreen,
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                widget.proposals.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 80,
-                                  color: QamaiThemeColor,
-                                ),
-                              ),
-                              AutoSizeText(
-                                'Proposals Sent',
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontFamily: 'Raleway',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 15,
-                                  color: QamaiThemeColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                      Container(
+                        height: 150,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: QamaiGreen,
                         ),
-                        onTap: () {
-                          setState(() {
-                            body = Inbox();
-                            index = 3;
-                            Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
-                          });
-                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              widget.proposals.toString(),
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 60,
+                                color: QamaiThemeColor,
+                              ),
+                            ),
+                            AutoSizeText(
+                              'Proposals Sent',
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                                color: QamaiThemeColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                   Column(
                     children: <Widget>[
-                      GestureDetector(
-                        child: Container(
-                          height: 150,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: QamaiGreen,
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                widget.interviews.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 80,
-                                  color: QamaiThemeColor,
-                                ),
-                              ),
-                              AutoSizeText(
-                                'Interviews In Progress',
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontFamily: 'Raleway',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 15,
-                                  color: QamaiThemeColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                      Container(
+                        height: 150,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: QamaiGreen,
                         ),
-                        onTap: () {
-                          setState(() {
-                            body = Inbox();
-                            index = 3;
-                            Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
-                          });
-                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              widget.interviews.toString(),
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 60,
+                                color: QamaiThemeColor,
+                              ),
+                            ),
+                            AutoSizeText(
+                              'Interviews In Progress',
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                                color: QamaiThemeColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                   Column(
                     children: <Widget>[
-                      GestureDetector(
-                        child: Container(
-                          height: 150,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: QamaiGreen,
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                widget.rating.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 80,
-                                  color: QamaiThemeColor,
-                                ),
-                              ),
-                              AutoSizeText(
-                                'Overall Rating',
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontFamily: 'Raleway',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 15,
-                                  color: QamaiThemeColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                      Container(
+                        height: 150,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: QamaiGreen,
                         ),
-                        onTap: () {
-                          body = Profile();
-                          index = 4;
-                          Navigator.pushReplacementNamed(
-                              context, HomeScreen.id);
-                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              widget.rating.toString(),
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 60,
+                                color: QamaiThemeColor,
+                              ),
+                            ),
+                            AutoSizeText(
+                              'Overall Rating',
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                                color: QamaiThemeColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -678,9 +650,9 @@ class HomeProfileVerified extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Icon(
-                    OMIcons.verifiedUser,
-                    color: Red,
+                    Ionicons.getIconData("ios-close-circle-outline"),
                     size: 60,
+                    color: Red,
                   ),
                 ),
                 Padding(

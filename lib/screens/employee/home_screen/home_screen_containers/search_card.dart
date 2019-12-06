@@ -3,7 +3,7 @@ import 'package:qamai_official/constants.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/public_profile_view.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/public_profile_view.dart';
 
 Widget SearchResultCards(data, title, text, context,item) {
   return GestureDetector(

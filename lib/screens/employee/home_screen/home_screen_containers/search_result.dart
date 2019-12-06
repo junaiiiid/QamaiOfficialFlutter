@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/search_bar.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/search_card.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_bar.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_card.dart';
 
 
 class SearchResultList extends StatelessWidget {

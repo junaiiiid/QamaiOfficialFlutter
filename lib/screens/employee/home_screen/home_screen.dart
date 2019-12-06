@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
-import 'package:qamai_official/screens/home_screen/home_screen_containers/settings_dialog.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/home_scaffold.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/settings_dialog.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/home_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/search_scaffold.dart';
-import 'package:qamai_official/screens/home_screen/profile_screen_scaffolds/radar_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/search_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/radar_scaffold.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:provider/provider.dart';
+import 'package:qamai_official/screens/employer/home_screen/employer_form.dart';
 import 'package:qamai_official/theme.dart';
 
 
@@ -117,7 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ThemeService themeService = Provider.of<ThemeService>(
                       context);
                   themeService.switchToThemeB();
-                  body = Home();
+                  //body = Home();
+
+                  body = EmployerForm();
                 });
                 break;
 

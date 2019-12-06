@@ -9,7 +9,7 @@ import 'package:qamai_official/theme.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:qamai_official/containers/modules/user_information.dart';
-import 'package:qamai_official/screens/home_screen/home_screen.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';

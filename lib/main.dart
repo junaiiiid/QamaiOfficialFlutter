@@ -6,7 +6,7 @@ import 'screens/login_screen.dart';
 import 'screens/forgot_password.dart';
 import 'screens/signup_screen.dart';
 import 'screens/signup_screen2.dart';
-import 'screens/home_screen/home_screen.dart';
+import 'screens/employee/home_screen/home_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
