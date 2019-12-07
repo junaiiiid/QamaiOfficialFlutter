@@ -3,6 +3,12 @@ String _Title;
 String _Email;
 String _Description;
 String _Category;
+String _imageURL;
+
+
+void setimageURL(String url) {
+  _imageURL = url;
+}
 
 void setName(String name) {
   _Name = name;
@@ -42,6 +48,10 @@ String getDescription() {
 
 String getCategory() {
   return _Category;
+}
+
+String getimageURL() {
+  return _imageURL;
 }
 
 void ClearAllInfo() {

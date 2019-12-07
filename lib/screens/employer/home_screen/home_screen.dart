@@ -5,6 +5,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/widgets/settings_dialog.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 class EmployerHomeScreen extends StatefulWidget {
   @override
@@ -75,7 +76,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
           ],
           onTap: (index) {},
         ),
-        body: Container(),
+        body: EmployerProfile(),
       ),
     );
   }

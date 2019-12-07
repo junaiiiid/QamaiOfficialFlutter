@@ -524,14 +524,14 @@ class RegisterEmployer extends StatelessWidget {
 }
 
 class EmployerInitialize extends StatelessWidget {
-
   static String id = 'EmployerHomeScreen';
 
   @override
   Widget build(BuildContext context) {
     getUser();
     return StreamBuilder(
-      stream: Firestore.instance.collection(UserInformation)
+      stream: Firestore.instance
+          .collection(UserInformation)
           .document(userid)
           .snapshots(),
       builder: (context, snapshot) {
@@ -539,12 +539,10 @@ class EmployerInitialize extends StatelessWidget {
           var userDocument = snapshot.data;
           if (userDocument['EmployerProfile'] == '') {
             return EmployerForm();
-          }
-          else {
+          } else {
             return Employer.EmployerHomeScreen();
           }
-        }
-        else {
+        } else {
           return Scaffold();
         }
       },
@@ -557,7 +555,8 @@ class RelevantHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     getUser();
     return StreamBuilder(
-      stream: Firestore.instance.collection(UserInformation)
+      stream: Firestore.instance
+          .collection(UserInformation)
           .document(userid)
           .snapshots(),
       builder: (context, snapshot) {
@@ -565,15 +564,36 @@ class RelevantHomeScreen extends StatelessWidget {
           var userDocument = snapshot.data;
           if (userDocument['ActiveProfile'] == 'Employer') {
             return Employer.EmployerHomeScreen();
-          }
-          else {
+          } else {
             return HomeScreen();
           }
-        }
-        else {
+        } else {
           return HomeScreen();
         }
       },
     );
   }
 }
+
+Future UpdateEmployerProfilePicture(String url) async {
+  getUser();
+  DocumentReference documentReference =
+  Firestore.instance.collection(UserInformation).document(userid);
+  documentReference.get().then((datasnapshot) {
+    if (datasnapshot.exists) {
+      var userDocument = datasnapshot.data;
+      if (userDocument['EmployerProfile'] == 'Internship') {
+        firestore.collection(InternshipInformation).document(userid).updateData(
+            {
+              'ProfilePicture': url,
+            });
+      }
+      else if (userDocument['EmployerProfile'] == 'Job') {
+        firestore.collection(WorkInformation).document(userid).updateData({
+          'ProfilePicture': url,
+        });
+      }
+    }
+  });
+}
+
