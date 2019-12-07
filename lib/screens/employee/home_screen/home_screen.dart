@@ -13,7 +13,6 @@ import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaff
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/radar_scaffold.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:provider/provider.dart';
-import 'package:qamai_official/screens/employer/home_screen/employer_form.dart';
 import 'package:qamai_official/theme.dart';
 
 

@@ -79,7 +79,6 @@ class OnlineSwitch extends StatelessWidget {
                   height: 20,
                 ),
                 LiteRollingSwitch(
-                  //initial value
                   value: temp,
                   textOn: 'ONLINE',
                   textOff: 'OFFLINE',
