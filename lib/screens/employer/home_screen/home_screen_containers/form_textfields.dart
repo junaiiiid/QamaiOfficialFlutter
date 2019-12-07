@@ -1,8 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/containers/widgets/button.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class EmployerFormTextFields extends StatelessWidget {
   final label;

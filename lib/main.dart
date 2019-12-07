@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qamai_official/database/firebase.dart';
 import 'constants.dart';
 import 'screens/splash_screen.dart';
 import 'screens/welcome_screen.dart';
@@ -55,6 +56,7 @@ class _ThemeState extends State<Theme> {
               SignupScreen.id: (context) => SignupScreen(),
               SignupScreen2.id: (context) => SignupScreen2(),
               HomeScreen.id: (context) => HomeScreen(),
+              EmployerInitialize.id: (context) => EmployerInitialize(),
             },
           );
         }));

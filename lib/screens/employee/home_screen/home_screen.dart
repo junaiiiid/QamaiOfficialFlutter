@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
-import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/settings_dialog.dart';
+import 'package:qamai_official/containers/widgets/settings_dialog.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/home_scaffold.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -118,9 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ThemeService themeService = Provider.of<ThemeService>(
                       context);
                   themeService.switchToThemeB();
-                  //body = Home();
-
-                  body = EmployerForm();
+                  body = Home();
                 });
                 break;
 

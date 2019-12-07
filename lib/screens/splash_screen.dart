@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash/animated_splash.dart';
 import 'package:qamai_official/database/firebase.dart';
-import 'package:qamai_official/screens/employer/home_screen/employer_form.dart';
 
 
 

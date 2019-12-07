@@ -11,7 +11,7 @@ class CarouselPage extends StatelessWidget {
         child: Carousel(
           overlayShadowColors: QamaiThemeColor,
           images: [
-            Image.asset('images/image_1.png'),
+            Image.asset('images/image_1.jpg'),
             Image.asset('images/image_2.png'),
             Image.asset('images/image_3.png'),
             Image.asset('images/image_4.png'),

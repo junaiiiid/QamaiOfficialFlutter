@@ -65,3 +65,9 @@ const String update='Update';
 
 const String dpfemale='https://firebasestorage.googleapis.com/v0/b/qamai-official-5cd60.appspot.com/o/ProfilePicture%2Fdpfemale.png?alt=media&token=9ebfdec5-c505-495f-958c-ea18a352a2e2';
 const String dpmale='https://firebasestorage.googleapis.com/v0/b/qamai-official-5cd60.appspot.com/o/ProfilePicture%2Fdpmale.png?alt=media&token=94630c7e-e1f4-4b11-ae85-63f94c492e36';
+
+const String WorkInformation = 'WorkInformation';
+const String InternshipInformation = 'InternshipInformation';
+
+const String dpinternship = 'https://firebasestorage.googleapis.com/v0/b/qamai-official-5cd60.appspot.com/o/ProfilePicture%2Fdpinternship.png?alt=media&token=cdcfcb9d-e106-4744-a0e2-61fd123c968f';
+const String dpwork = 'https://firebasestorage.googleapis.com/v0/b/qamai-official-5cd60.appspot.com/o/ProfilePicture%2Fdpwork.png?alt=media&token=8ee229d1-c8b6-4fc5-99fb-ee9a74b42546';

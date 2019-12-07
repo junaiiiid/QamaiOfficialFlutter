@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qamai_official/containers/modules/employer_information.dart'
+as employer;
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:qamai_official/screens/forgot_password.dart';
 import 'package:qamai_official/screens/welcome_screen.dart';
@@ -16,12 +19,13 @@ import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/modules/alert_strings.dart';
 import 'package:qamai_official/screens/login_screen.dart';
 import 'package:provider/provider.dart';
-
+import 'package:qamai_official/screens/employer/home_screen/home_screen.dart'
+as Employer;
+import 'package:qamai_official/screens/employer/home_screen/employer_form.dart';
 
 final _Auth = FirebaseAuth.instance;
 final firestore = Firestore.instance;
 String pictureurl;
-
 
 Future Register(BuildContext context) async {
   try {
@@ -42,9 +46,11 @@ Future Register(BuildContext context) async {
       'Gender': getGender(),
       'NumberVerified': false,
       'FullName': '${getFirstName()} ${getLastName()}',
-      'JobList':[],
+      'JobList': [],
       'Interviews': [],
       'online': true,
+      'EmployerProfile': '',
+      'ActiveProfile': 'Employee',
     });
 
     user = (await _Auth.signInWithEmailAndPassword(
@@ -190,7 +196,7 @@ Future LogIn(BuildContext context) async {
 }
 
 Future ResetPassword(BuildContext context) async {
-  bool is_caught=false;
+  bool is_caught = false;
 
   try {
     await _Auth.sendPasswordResetEmail(email: getRecoveryMail());
@@ -243,8 +249,7 @@ Widget ExistingUser(BuildContext context) {
           /// is because there is user already logged
           if (user.isEmailVerified) {
             themeService.switchToThemeB();
-            return HomeScreen(
-            );
+            return RelevantHomeScreen();
           }
         }
 
@@ -252,7 +257,6 @@ Widget ExistingUser(BuildContext context) {
         return WelcomeScreen();
       });
 }
-
 
 Future Update(BuildContext context) async {
   try {
@@ -383,7 +387,8 @@ Future PasswordChanger(BuildContext context) async {
               fontWeight: FontWeight.w800),
         ),
         description: Text(
-          'An Email has been sent to ${user.email} with instruction, on how to reset your password.',
+          'An Email has been sent to ${user
+              .email} with instruction, on how to reset your password.',
           textAlign: TextAlign.center,
           style: TextStyle(
               color: QamaiThemeColor,
@@ -406,7 +411,6 @@ Future UpdateProfilePicture(BuildContext context, String url) async {
   });
 }
 
-
 Future UpdateAvailability(bool value) async {
   getUser();
   firestore.collection('UserInformation').document(userid).updateData({
@@ -417,8 +421,6 @@ Future UpdateAvailability(bool value) async {
 //SEARCHER
 
 class SearchService {
-
-
   searchPeople(String searchField) {
     return Firestore.instance
         .collection('UserInformation')
@@ -455,4 +457,123 @@ Future RemoveJobs(Job) async {
   firestore.collection(UserInformation).document(userid).updateData({
     'JobList': FieldValue.arrayRemove([Job]),
   });
+}
+
+//EmployerEND
+
+class RegisterEmployer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    getUser();
+    return StreamBuilder(
+      stream: Firestore.instance
+          .collection(UserInformation)
+          .document(userid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var userDocument = snapshot.data;
+          if (userDocument['EmployerProfile'] == '') {
+            if (employer.getCategory() == 'Internship') {
+              getUser();
+              firestore
+                  .collection(UserInformation)
+                  .document(userid)
+                  .updateData({
+                'EmployerProfile': 'Internship',
+              });
+
+              firestore
+                  .collection(InternshipInformation)
+                  .document(userid)
+                  .setData({
+                'InternshipEmployerName': employer.getName(),
+                'InternshipTitle': employer.getTitle(),
+                'InternshipDescription': employer.getDescription(),
+                'ProfilePicture': dpinternship,
+              });
+              employer.ClearAllInfo();
+            } else if (employer.getCategory() == 'Job') {
+              getUser();
+              firestore
+                  .collection(UserInformation)
+                  .document(userid)
+                  .updateData({
+                'EmployerProfile': 'Job',
+              });
+
+              firestore.collection(WorkInformation).document(userid).setData({
+                'EmployerName': employer.getName(),
+                'JobTitle': employer.getTitle(),
+                'JobDescription': employer.getDescription(),
+                'ProfilePicture': dpwork,
+              });
+              employer.ClearAllInfo();
+            }
+
+            return Employer.EmployerHomeScreen();
+          } else {
+            return Employer.EmployerHomeScreen();
+          }
+        } else {
+          return Employer.EmployerHomeScreen();
+        }
+      },
+    );
+  }
+}
+
+class EmployerInitialize extends StatelessWidget {
+
+  static String id = 'EmployerHomeScreen';
+
+  @override
+  Widget build(BuildContext context) {
+    getUser();
+    return StreamBuilder(
+      stream: Firestore.instance.collection(UserInformation)
+          .document(userid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var userDocument = snapshot.data;
+          if (userDocument['EmployerProfile'] == '') {
+            return EmployerForm();
+          }
+          else {
+            return Employer.EmployerHomeScreen();
+          }
+        }
+        else {
+          return Scaffold();
+        }
+      },
+    );
+  }
+}
+
+class RelevantHomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    getUser();
+    return StreamBuilder(
+      stream: Firestore.instance.collection(UserInformation)
+          .document(userid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var userDocument = snapshot.data;
+          if (userDocument['ActiveProfile'] == 'Employer') {
+            return Employer.EmployerHomeScreen();
+          }
+          else {
+            return HomeScreen();
+          }
+        }
+        else {
+          return HomeScreen();
+        }
+      },
+    );
+  }
 }
