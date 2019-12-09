@@ -487,9 +487,9 @@ class RegisterEmployer extends StatelessWidget {
                   .collection(InternshipInformation)
                   .document(userid)
                   .setData({
-                'InternshipEmployerName': employer.getName(),
-                'InternshipTitle': employer.getTitle(),
-                'InternshipDescription': employer.getDescription(),
+                'EmployerName': employer.getName(),
+                'EmployerTitle': employer.getTitle(),
+                'EmployerDescription': employer.getDescription(),
                 'ProfilePicture': dpinternship,
               });
               employer.ClearAllInfo();
@@ -504,8 +504,8 @@ class RegisterEmployer extends StatelessWidget {
 
               firestore.collection(WorkInformation).document(userid).setData({
                 'EmployerName': employer.getName(),
-                'JobTitle': employer.getTitle(),
-                'JobDescription': employer.getDescription(),
+                'EmployerTitle': employer.getTitle(),
+                'EmployerDescription': employer.getDescription(),
                 'ProfilePicture': dpwork,
               });
               employer.ClearAllInfo();

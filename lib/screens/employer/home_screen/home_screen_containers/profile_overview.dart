@@ -212,7 +212,7 @@ class EmployerName extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return AutoSizeText(
-                    snapshot.data['InternshipEmployerName'],
+                    snapshot.data['EmployerName'],
                     style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w800,
@@ -311,7 +311,7 @@ class EmployerDesignation extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return AutoSizeText(
-                    snapshot.data['InternshipTitle'],
+                    snapshot.data['EmployerTitle'],
                     style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,
@@ -347,7 +347,7 @@ class EmployerDesignation extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return AutoSizeText(
-                    snapshot.data['JobTitle'],
+                    snapshot.data['EmployerTitle'],
                     style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,
