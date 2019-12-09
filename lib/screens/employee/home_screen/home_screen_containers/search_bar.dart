@@ -75,7 +75,7 @@ class _MySearchBarState extends State<MySearchBar> {
     } else {
       tempSearchStore1 = [];
       queryResultSet1.forEach((element) {
-        if (element['JobTitle'].startsWith(capitalizedValue)) {
+        if (element['EmployerName'].startsWith(capitalizedValue)) {
           setState(() {
             tempSearchStore1.add(element);
           });
@@ -110,7 +110,7 @@ class _MySearchBarState extends State<MySearchBar> {
     } else {
       tempSearchStore2 = [];
       queryResultSet2.forEach((element) {
-        if (element['InternshipEmployerName'].startsWith(capitalizedValue)) {
+        if (element['EmployerName'].startsWith(capitalizedValue)) {
           setState(() {
             tempSearchStore2.add(element);
           });

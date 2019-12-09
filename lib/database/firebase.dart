@@ -35,22 +35,22 @@ Future Register(BuildContext context) async {
     FirebaseUser user = await _Auth.currentUser();
 
     firestore.collection(UserInformation).document(user.uid).setData({
-      'CNIC': getCNIC(),
-      'DOB': getDOB(),
-      'Email': getEmail(),
+      'FullName': '${getFirstName()} ${getLastName()}',
       'FirstName': getFirstName(),
       'LastName': getLastName(),
+      'Email': getEmail(),
       'Phone': getPhone(),
-      'Story': story,
-      'ProfilePicture': (getGender() == 'male') ? dpmale : dpfemale,
+      'DOB': getDOB(),
+      'CNIC': getCNIC(),
       'Gender': getGender(),
+      'ProfilePicture': (getGender() == 'male') ? dpmale : dpfemale,
+      'Story': story,
       'NumberVerified': false,
-      'FullName': '${getFirstName()} ${getLastName()}',
-      'JobList': [],
-      'Interviews': [],
       'online': true,
       'EmployerProfile': '',
       'ActiveProfile': 'Employee',
+      'JobList': [],
+      'Interviews': [],
     });
 
     user = (await _Auth.signInWithEmailAndPassword(
@@ -431,14 +431,14 @@ class SearchService {
   searchJob(String searchField) {
     return Firestore.instance
         .collection('WorkInformation')
-        .where('JobTitle', isGreaterThanOrEqualTo: searchField)
+        .where('EmployerName', isGreaterThanOrEqualTo: searchField)
         .getDocuments();
   }
 
   searchInternship(String searchField) {
     return Firestore.instance
         .collection('InternshipInformation')
-        .where('InternshipEmployerName', isGreaterThanOrEqualTo: searchField)
+        .where('EmployerName', isGreaterThanOrEqualTo: searchField)
         .getDocuments();
   }
 }
@@ -489,6 +489,7 @@ class RegisterEmployer extends StatelessWidget {
                   .setData({
                 'EmployerName': employer.getName(),
                 'EmployerTitle': employer.getTitle(),
+                'EmployerEmail': employer.getEmail(),
                 'EmployerDescription': employer.getDescription(),
                 'ProfilePicture': dpinternship,
               });
@@ -505,6 +506,7 @@ class RegisterEmployer extends StatelessWidget {
               firestore.collection(WorkInformation).document(userid).setData({
                 'EmployerName': employer.getName(),
                 'EmployerTitle': employer.getTitle(),
+                'EmployerEmail': employer.getEmail(),
                 'EmployerDescription': employer.getDescription(),
                 'ProfilePicture': dpwork,
               });

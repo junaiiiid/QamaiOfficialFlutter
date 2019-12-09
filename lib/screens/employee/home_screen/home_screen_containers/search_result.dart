@@ -27,10 +27,12 @@ class SearchResultList extends StatelessWidget {
             }
           else if(item==2)
           {
-            return SearchResultCards(element,'EmployerName','JobTitle',context,item);
+            return SearchResultCards(
+                element, 'EmployerName', 'EmployerTitle', context, item);
           }
           else{
-            return SearchResultCards(element,'InternshipEmployerName','InternshipTitle',context,item);
+            return SearchResultCards(
+                element, 'EmployerName', 'EmployerTitle', context, item);
           }
 
         }).toList());

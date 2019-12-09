@@ -268,7 +268,7 @@ class PublicJobOverview extends StatelessWidget {
               ),
               Center(
                 child: AutoSizeText(
-                  '${data['JobTitle']}',
+                  '${data['EmployerTitle']}',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
@@ -307,7 +307,7 @@ class JobList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20,right: 20,top:20),
           child: Text(
-            'Job Title :',
+            'Designation :',
             style: TextStyle(
                 fontFamily: 'Montserrat',
                 color: QamaiThemeColor,
@@ -317,7 +317,7 @@ class JobList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20,right: 20,top:20),
           child: Text(
-            '${data['JobTitle']}',
+            '${data['EmployerTitle']}',
             style: TextStyle(
                 fontFamily: 'Raleway',
                 color: QamaiThemeColor,
@@ -327,7 +327,7 @@ class JobList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20,right: 20,top:20),
           child: Text(
-            'Job Description :',
+            'Description :',
             style: TextStyle(
                 fontFamily: 'Montserrat',
                 color: QamaiThemeColor,
@@ -337,31 +337,13 @@ class JobList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text(
-            '${data['JobDescription']}',
+            '${data['EmployerDescription']}',
             style: TextStyle(
                 fontFamily: 'Raleway',
                 color: QamaiThemeColor,
                 fontSize: 12.0),
           ),
         ),
-        Card(
-            color: QamaiGreen,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: ListTile(
-              leading:
-              Icon(OMIcons.check, color: QamaiThemeColor, size: 20.0),
-              title: AutoSizeText(
-                'Apply for this Position',
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    color: QamaiThemeColor,
-                    fontSize: 15.0),
-                maxLines: 1,
-                maxFontSize: 15,
-                minFontSize: 9,
-              ),
-            )),
         SizedBox(
           height: 20,
         ),
@@ -474,7 +456,7 @@ class PublicInternshipOverview extends StatelessWidget {
               ),
               Center(
                 child: AutoSizeText(
-                  '${data['InternshipEmployerName']}',
+                  '${data['EmployerName']}',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w800,
@@ -490,7 +472,7 @@ class PublicInternshipOverview extends StatelessWidget {
               ),
               Center(
                 child: AutoSizeText(
-                  '${data['InternshipTitle']}',
+                  '${data['EmployerTitle']}',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
@@ -529,7 +511,7 @@ class InternshipList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20,right: 20,top:20),
           child: Text(
-            'Internship Title :',
+            'Designation :',
             style: TextStyle(
                 fontFamily: 'Montserrat',
                 color: QamaiThemeColor,
@@ -539,7 +521,7 @@ class InternshipList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20,right: 20,top:20),
           child: Text(
-            '${data['InternshipTitle']}',
+            '${data['EmployerTitle']}',
             style: TextStyle(
                 fontFamily: 'Raleway',
                 color: QamaiThemeColor,
@@ -549,7 +531,7 @@ class InternshipList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20,right: 20,top:20),
           child: Text(
-            'Internship Description :',
+            'Description :',
             style: TextStyle(
                 fontFamily: 'Montserrat',
                 color: QamaiThemeColor,
@@ -559,31 +541,13 @@ class InternshipList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text(
-            '${data['InternshipDescription']}',
+            '${data['EmployerDescription']}',
             style: TextStyle(
                 fontFamily: 'Raleway',
                 color: QamaiThemeColor,
                 fontSize: 12.0),
           ),
         ),
-        Card(
-            color: QamaiGreen,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: ListTile(
-              leading:
-              Icon(OMIcons.check, color: QamaiThemeColor, size: 20.0),
-              title: AutoSizeText(
-                'Apply for this Position',
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    color: QamaiThemeColor,
-                    fontSize: 15.0),
-                maxLines: 1,
-                maxFontSize: 15,
-                minFontSize: 9,
-              ),
-            )),
         SizedBox(
           height: 20,
         ),

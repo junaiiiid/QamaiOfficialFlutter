@@ -250,6 +250,7 @@ class EmployerDetailsList extends StatelessWidget {
       children: <Widget>[
         CardReturner('EmployerName', 'Organization Name', OMIcons.business),
         CardReturner('EmployerTitle', 'Designation', OMIcons.workOutline),
+        CardReturner('EmployerEmail', 'Email', OMIcons.mailOutline),
         EmployerDescriptionWidget('EmployerDescription'),
         FlatButton(
           padding: EdgeInsets.all(0),

@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/widgets/settings_dialog.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
+
+import '../../../theme.dart';
+
+
 
 class EmployerHomeScreen extends StatefulWidget {
   @override
@@ -13,6 +19,9 @@ class EmployerHomeScreen extends StatefulWidget {
 }
 
 class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
+
+  Widget body;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -74,9 +83,32 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
               color: White,
             ),
           ],
-          onTap: (index) {},
+          onTap: (index) {
+            switch (index) {
+              case 3:
+                {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
+                  setState(() {
+                    body = EmployerInbox();
+                  });
+                  break;
+                }
+              case 4:
+                {
+                  ThemeService themeService = Provider.of<ThemeService>(
+                      context);
+                  themeService.switchToThemeB();
+                  setState(() {
+                    body = EmployerProfile();
+                  });
+                  break;
+                }
+            }
+          },
         ),
-        body: EmployerProfile(),
+        body: body,
       ),
     );
   }
