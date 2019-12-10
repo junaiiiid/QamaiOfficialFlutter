@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:qamai_official/constants.dart';
+import 'package:qamai_official/containers/widgets/button.dart';
+import 'package:qamai_official/database/firebase.dart';
+import 'package:qamai_official/database/firebase_data_reciever.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
+import 'package:qamai_official/screens/employer/home_screen/proposal_form.dart';
 
 class EmployerInbox extends StatelessWidget {
   @override
@@ -68,7 +74,7 @@ class EmployerInbox extends StatelessWidget {
           body: TabBarView(
             children: <Widget>[
               NewProposal(),
-              Container(),
+              SubmittedProposalsList(),
               Container(),
               Container(),
             ],
@@ -83,26 +89,100 @@ class NewProposal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.center,
-            child: Icon(
-              Ionicons.getIconData("ios-clipboard"),
-              color: QamaiGreen,
-              size: 100,
+      child: GestureDetector(
+        child: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.center,
+              child: Icon(
+                Ionicons.getIconData("ios-clipboard"),
+                color: QamaiGreen,
+                size: 100,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment(0.25, -0.20),
-            child: Icon(
-              Ionicons.getIconData("ios-add-circle"),
-              color: QamaiThemeColor,
-              size: 25,
+            Align(
+              alignment: Alignment(0.25, -0.20),
+              child: Icon(
+                Ionicons.getIconData("ios-add-circle"),
+                color: QamaiThemeColor,
+                size: 25,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProposalForm()),
+          );
+        },
       ),
     );
   }
 }
+
+class SubmittedProposalsList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestore.collection(Proposals).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final proposals = snapshot.data.documents;
+
+          getUser();
+
+          List<ProposalCard> ProposalCardlist = [];
+          for (var proposal in proposals) {
+            if (proposal['EmployerID'] == userid) {
+              final EmployerName = proposal.data['EmployerName'];
+              final ProposalDescription = proposal.data['ProposalDescription'];
+              final Rate = proposal.data['Rate'];
+              final Category = proposal.data['Category'];
+              final EmployerID = proposal.data['EmployerID'];
+
+              final docRef = proposal.documentID;
+
+              final proposal_card = ProposalCard(
+                EmployerName,
+                ProposalDescription,
+                Rate,
+                Category,
+                ProposalProfilePicture(Category, EmployerID),
+                ProposalButton(docRef),
+                docRef,
+                proposal,
+              );
+
+              ProposalCardlist.add(proposal_card);
+            }
+          }
+          return ListView(
+            children: ProposalCardlist,
+          );
+        } else {
+          return ListView(
+            children: <Widget>[
+              ProposalCard(
+                'LOADING...',
+                'LOADING...',
+                'LOADING...',
+                'LOADING...',
+                CircleAvatar(
+                  backgroundColor: QamaiThemeColor,
+                ),
+                DisabledButton(
+                  text: 'APPLIED',
+                  color: LightGray,
+                ),
+                '',
+                '',
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+}
+

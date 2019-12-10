@@ -136,7 +136,11 @@ Future LogIn(BuildContext context) async {
         .user;
     if (user.isEmailVerified) {
       themeService.switchToThemeB();
-      Navigator.pushNamed(context, HomeScreen.id);
+      //Navigator.pushNamed(context, HomeScreen.id);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RelevantHomeScreen()),
+      );
 
       ClearAllInfo();
     } else {

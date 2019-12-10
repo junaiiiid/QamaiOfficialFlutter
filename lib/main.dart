@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qamai_official/database/firebase.dart';
+import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'constants.dart';
 import 'screens/splash_screen.dart';
 import 'screens/welcome_screen.dart';
@@ -35,6 +36,7 @@ class _ThemeState extends State<Theme> {
   void initState() {
     // TODO: implement initState
     Initialize();
+    getUser();
   }
 
   @override

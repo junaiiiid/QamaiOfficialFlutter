@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
@@ -33,11 +34,16 @@ void Initialize() {
   FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
   FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
   FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ThemeService themeService = Provider.of<ThemeService>(context);
+      themeService.switchToThemeB();
+    });
 
     Initialize();
     getUser();
@@ -114,45 +120,30 @@ class _HomeScreenState extends State<HomeScreen> {
             switch (index) {
               case 0:
                 setState(() {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   body = Home();
                 });
                 break;
 
               case 1:
                 setState(() {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   body = Search();
                 });
                 break;
 
               case 2:
                 setState(() {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   body = RadarMap();
                 });
                 break;
 
               case 3:
                 setState(() {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   body = Inbox();
                 });
                 break;
 
               case 4:
                 setState(() {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   body = Profile();
                 });
                 break;

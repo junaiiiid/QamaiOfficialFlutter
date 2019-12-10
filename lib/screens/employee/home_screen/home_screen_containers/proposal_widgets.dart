@@ -432,24 +432,6 @@ class JobDetails extends StatelessWidget {
           ),
         ),
         button,
-        /*Card(
-            color: QamaiGreen,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: ListTile(
-              leading:
-              Icon(OMIcons.check, color: QamaiThemeColor, size: 20.0),
-              title: AutoSizeText(
-                'Apply for this Position',
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    color: QamaiThemeColor,
-                    fontSize: 15.0),
-                maxLines: 1,
-                maxFontSize: 15,
-                minFontSize: 9,
-              ),
-            )),*/
         SizedBox(
           height: 20,
         ),

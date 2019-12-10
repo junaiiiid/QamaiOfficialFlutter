@@ -1,17 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/widgets/settings_dialog.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 import '../../../theme.dart';
 
-
+void Initialize() {
+  FlutterStatusbarcolor.setStatusBarColor(White);
+  FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
+  FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+}
 
 class EmployerHomeScreen extends StatefulWidget {
   @override
@@ -20,7 +28,21 @@ class EmployerHomeScreen extends StatefulWidget {
 
 class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
 
+
   Widget body;
+
+  @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ThemeService themeService = Provider.of<ThemeService>(context);
+      themeService.switchToThemeB();
+    });
+
+    Initialize();
+    getUser();
+    getJobsList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +109,6 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
             switch (index) {
               case 3:
                 {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   setState(() {
                     body = EmployerInbox();
                   });
@@ -97,9 +116,6 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
                 }
               case 4:
                 {
-                  ThemeService themeService = Provider.of<ThemeService>(
-                      context);
-                  themeService.switchToThemeB();
                   setState(() {
                     body = EmployerProfile();
                   });
