@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -139,6 +140,7 @@ class SubmittedProposalsList extends StatelessWidget {
               final ProposalDescription = proposal.data['ProposalDescription'];
               final Rate = proposal.data['Rate'];
               final Category = proposal.data['Category'];
+              final EmployerProfile = proposal.data['EmployerProfile'];
               final EmployerID = proposal.data['EmployerID'];
 
               final docRef = proposal.documentID;
@@ -148,9 +150,10 @@ class SubmittedProposalsList extends StatelessWidget {
                 ProposalDescription,
                 Rate,
                 Category,
-                ProposalProfilePicture(Category, EmployerID),
+                ProposalProfilePicture(EmployerProfile, EmployerID),
                 ProposalButton(docRef),
                 docRef,
+                EmployerProfile,
                 proposal,
               );
 
@@ -175,6 +178,7 @@ class SubmittedProposalsList extends StatelessWidget {
                   text: 'APPLIED',
                   color: LightGray,
                 ),
+                '',
                 '',
                 '',
               ),

@@ -213,12 +213,13 @@ void PublishProposal() {
           var internDocument = datasnapshot.data;
           firestore.collection(Proposals).add({
             'Category': getCategory(),
+            'EmployerProfile': userDocument['EmployerProfile'],
             'EmployerID': userid,
             'EmployerName': internDocument['EmployerName'],
             'Positions': getPosition().toString(),
             'ProposalDescription': getDescription(),
             'Rate': getRate(),
-            'Time': getTime()
+            'Time': getTime(),
           });
         });
       } else if (userDocument['EmployerProfile'] == 'Job') {
@@ -226,6 +227,7 @@ void PublishProposal() {
           var workDocument = datasnapshot.data;
           firestore.collection(Proposals).add({
             'Category': getCategory(),
+            'EmployerProfile': userDocument['EmployerProfile'],
             'EmployerID': userid,
             'EmployerName': workDocument['EmployerName'],
             'Positions': getPosition(),

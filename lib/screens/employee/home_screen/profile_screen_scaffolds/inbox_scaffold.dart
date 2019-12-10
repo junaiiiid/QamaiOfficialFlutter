@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/sent_widgets.dart';
@@ -68,5 +70,29 @@ class Inbox extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CategoryIconReturner extends StatelessWidget {
+
+  final data;
+
+  CategoryIconReturner(this.data);
+
+
+  @override
+  Widget build(BuildContext context) {
+    if (data['Category'] == 'Internship') {
+      return Icon(
+        Ionicons.getIconData('ios-school'),
+        size: 25,
+      );
+    }
+    else {
+      return Icon(
+        OMIcons.business,
+        size: 25,
+      );
+    }
   }
 }

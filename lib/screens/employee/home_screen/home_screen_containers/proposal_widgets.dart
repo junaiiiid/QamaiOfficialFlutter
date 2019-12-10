@@ -8,6 +8,7 @@ import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 //PROPOSALS
@@ -26,6 +27,7 @@ class ProposalsList extends StatelessWidget {
             final ProposalDescription = proposal.data['ProposalDescription'];
             final Rate = proposal.data['Rate'];
             final Category = proposal.data['Category'];
+            final EmployerProfile = proposal.data['EmployerProfile'];
             final EmployerID = proposal.data['EmployerID'];
 
             final docRef = proposal.documentID;
@@ -35,9 +37,10 @@ class ProposalsList extends StatelessWidget {
               ProposalDescription,
               Rate,
               Category,
-              ProposalProfilePicture(Category, EmployerID),
+              ProposalProfilePicture(EmployerProfile, EmployerID),
               ProposalButton(docRef),
               docRef,
+              EmployerProfile,
               proposal,
             );
 
@@ -63,6 +66,7 @@ class ProposalsList extends StatelessWidget {
                 ),
                 '',
                 '',
+                '',
               ),
             ],
           );
@@ -81,6 +85,7 @@ class ProposalCard extends StatefulWidget {
   final button;
   final docref;
   final userDocument;
+  final employerprofile;
 
   ProposalCard(
       this.EmloyerName,
@@ -90,6 +95,7 @@ class ProposalCard extends StatefulWidget {
       this.DisplayPicture,
       this.button,
       this.docref,
+      this.employerprofile,
       this.userDocument);
 
   @override
@@ -194,7 +200,7 @@ class _ProposalCardState extends State<ProposalCard> {
               builder: (context) => ProposalProfile(
                   widget.userDocument,
                   ProposalProfilePicture(
-                    widget.Category, widget.userDocument['EmployerID'],
+                    widget.employerprofile, widget.userDocument['EmployerID'],
                   ),
                   widget.button)),
         );
@@ -250,10 +256,7 @@ class ProposalProfile extends StatelessWidget {
                       labelColor: QamaiGreen,
                       tabs: [
                         Tab(
-                          icon: Icon(
-                            OMIcons.business,
-                            size: 25,
-                          ),
+                          icon: CategoryIconReturner(data),
                         ),
                         Tab(
                           icon: Icon(
@@ -482,3 +485,6 @@ class ProposalButton extends StatelessWidget {
         });
   }
 }
+
+//Icon returner
+

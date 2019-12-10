@@ -288,10 +288,10 @@ class SentProfilePicture extends StatelessWidget {
         if(snapshot.hasData)
           {
             final userDocument= snapshot.data;
-            final category=userDocument['Category'];
+            final employerprofile = userDocument['EmployerProfile'];
             final employerid=userDocument['EmployerID'];
 
-            return ProposalProfilePicture(category,employerid);
+            return ProposalProfilePicture(employerprofile, employerid);
           }
         else{
           return CircleAvatar(

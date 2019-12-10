@@ -256,16 +256,17 @@ void getJobsList() async {
 //ProfilePictureReturner for ProposalSubmitter
 
 class ProposalProfilePicture extends StatelessWidget {
-  final Category;
+  final EmployerProfile;
   final EmployerID;
 
   final radius;
 
-  ProposalProfilePicture(this.Category, this.EmployerID, {this.radius = 20.0});
+  ProposalProfilePicture(this.EmployerProfile, this.EmployerID,
+      {this.radius = 20.0});
 
   @override
   Widget build(BuildContext context) {
-    if (Category == 'Job') {
+    if (EmployerProfile == 'Job') {
       return StreamBuilder(
           stream: Firestore.instance
               .collection('WorkInformation')
@@ -285,7 +286,7 @@ class ProposalProfilePicture extends StatelessWidget {
               );
             }
           });
-    } else if (Category == 'Internship') {
+    } else if (EmployerProfile == 'Internship') {
       return StreamBuilder(
           stream: Firestore.instance
               .collection('InternshipInformation')
