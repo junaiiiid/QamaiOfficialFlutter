@@ -450,16 +450,28 @@ class SearchService {
 //UpdateJobsList returner
 
 Future AddJobs(Job) async {
+  getUser();
+
   firestore.collection(UserInformation).document(userid).updateData({
     'JobList': FieldValue.arrayUnion([Job]),
+  });
+
+  firestore.collection(ProposalsInformation).document(Job).updateData({
+    'CandidateList': FieldValue.arrayUnion([userid]),
   });
 }
 
 //RemoveJobsList returner
 
 Future RemoveJobs(Job) async {
+  getUser();
+
   firestore.collection(UserInformation).document(userid).updateData({
     'JobList': FieldValue.arrayRemove([Job]),
+  });
+
+  firestore.collection(ProposalsInformation).document(Job).updateData({
+    'CandidateList': FieldValue.arrayRemove([userid]),
   });
 }
 

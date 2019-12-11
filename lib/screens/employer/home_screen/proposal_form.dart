@@ -211,7 +211,7 @@ void PublishProposal() {
       if (userDocument['EmployerProfile'] == 'Internship') {
         internship.get().then((datasnapshot) {
           var internDocument = datasnapshot.data;
-          firestore.collection(Proposals).add({
+          firestore.collection(ProposalsInformation).add({
             'Category': getCategory(),
             'EmployerProfile': userDocument['EmployerProfile'],
             'EmployerID': userid,
@@ -220,12 +220,13 @@ void PublishProposal() {
             'ProposalDescription': getDescription(),
             'Rate': getRate(),
             'Time': getTime(),
+            'CandidateList': [],
           });
         });
       } else if (userDocument['EmployerProfile'] == 'Job') {
         work.get().then((datasnapshot) {
           var workDocument = datasnapshot.data;
-          firestore.collection(Proposals).add({
+          firestore.collection(ProposalsInformation).add({
             'Category': getCategory(),
             'EmployerProfile': userDocument['EmployerProfile'],
             'EmployerID': userid,
@@ -233,7 +234,8 @@ void PublishProposal() {
             'Positions': getPosition(),
             'ProposalDescription': getDescription(),
             'Rate': getRate(),
-            'Time': getTime()
+            'Time': getTime(),
+            'CandidateList': [],
           });
         });
       }

@@ -11,6 +11,8 @@ import 'package:qamai_official/screens/employer/home_screen/home_screen_containe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'inbox_scaffold.dart';
+
 class EmployerProfile extends StatefulWidget {
   EmployerProfile({Key key}) : super(key: key);
 
@@ -64,7 +66,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
           body: TabBarView(
             children: <Widget>[
               EmployerDetailsList(),
-              Container(/*TODO: implement showing of proposals*/),
+              EmployerWork(),
               ReviewsList(),
             ],
           ),
@@ -73,6 +75,62 @@ class _EmployerProfileState extends State<EmployerProfile> {
     );
   }
 }
+
+
+class NoProposal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Card(
+            color: QamaiGreen,
+            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+            child: ListTile(
+              leading: Icon(OMIcons.clear, color: QamaiThemeColor, size: 20.0),
+              title: AutoSizeText(
+                'No Proposals Submitted',
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    color: QamaiThemeColor,
+                    fontSize: 15.0),
+                maxLines: 1,
+                maxFontSize: 15,
+                minFontSize: 9,
+              ),
+            )),
+        SizedBox(
+          height: 20,
+        ),
+      ],
+    );
+  }
+}
+
+class EmployerWork extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestore.collection(ProposalsInformation).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final userdocument = snapshot.data.documents;
+
+          for (var documents in userdocument) {
+            if (documents['EmployerID'] == userid) {
+              return SubmittedProposalsList();
+            }
+          }
+          return NoProposal();
+        }
+        else {
+          return WorkList();
+        }
+      },
+    );
+  }
+}
+
 
 class WorkIconReturner extends StatelessWidget {
   @override
