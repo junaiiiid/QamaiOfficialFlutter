@@ -104,7 +104,7 @@ class _ProposalFormState extends State<ProposalForm> {
             }, 3),
             EmployerFormBigTextFields('Proposal Description', (value) {
               setDescription(value);
-            }, 100),
+            }, 500),
             EmployerFormTextFields('Time Start', (value) {
               setTimestart(value);
             }, 5),

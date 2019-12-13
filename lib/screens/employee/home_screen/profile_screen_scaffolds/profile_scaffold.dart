@@ -68,7 +68,7 @@ class _ProfileState extends State<Profile> {
           body: TabBarView(
             children: <Widget>[
               ProfileList(),
-              EmployeeWork(),
+              EmployeeWork(userid),
               ReviewsList(),
             ],
           ),
@@ -147,29 +147,26 @@ class WorkList extends StatelessWidget {
   }
 }
 
-class EmployeeWork extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Firestore.instance.collection(UserInformation)
-          .document(userid)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<String> JobList = List.from(snapshot.data['JobList']);
-          if (JobList.isEmpty) {
-            return WorkList();
-          }
-          else {
-            return SentList();
-          }
-        }
-        else {
+Widget EmployeeWork(var document) {
+  return StreamBuilder(
+    stream: Firestore.instance.collection(UserInformation)
+        .document(document)
+        .snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        List<String> JobList = List.from(snapshot.data['JobList']);
+        if (JobList.isEmpty) {
           return WorkList();
         }
-      },
-    );
-  }
+        else {
+          return SentList(document);
+        }
+      }
+      else {
+        return WorkList();
+      }
+    },
+  );
 }
 
 

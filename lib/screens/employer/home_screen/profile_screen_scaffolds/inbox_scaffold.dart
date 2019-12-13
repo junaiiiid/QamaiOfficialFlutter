@@ -75,7 +75,7 @@ class EmployerInbox extends StatelessWidget {
           body: TabBarView(
             children: <Widget>[
               NewProposal(),
-              SubmittedProposalsList(),
+              SubmittedProposalsList(userid),
               RecievedProposalsList(),
               Container(),
             ],
@@ -123,6 +123,10 @@ class NewProposal extends StatelessWidget {
 }
 
 class SubmittedProposalsList extends StatelessWidget {
+  final document;
+
+  SubmittedProposalsList(this.document);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -135,7 +139,7 @@ class SubmittedProposalsList extends StatelessWidget {
 
           List<ProposalCard> ProposalCardlist = [];
           for (var proposal in proposals) {
-            if (proposal['EmployerID'] == userid) {
+            if (proposal['EmployerID'] == document) {
               final EmployerName = proposal.data['EmployerName'];
               final ProposalDescription = proposal.data['ProposalDescription'];
               final Rate = proposal.data['Rate'];

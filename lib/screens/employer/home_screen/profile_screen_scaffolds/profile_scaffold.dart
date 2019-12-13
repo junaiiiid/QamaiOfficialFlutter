@@ -66,7 +66,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
           body: TabBarView(
             children: <Widget>[
               EmployerDetailsList(),
-              EmployerWork(),
+              EmployerWork(userid),
               ReviewsList(),
             ],
           ),
@@ -107,28 +107,30 @@ class NoProposal extends StatelessWidget {
   }
 }
 
-class EmployerWork extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection(ProposalsInformation).snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final userdocument = snapshot.data.documents;
-
-          for (var documents in userdocument) {
-            if (documents['EmployerID'] == userid) {
-              return SubmittedProposalsList();
-            }
-          }
-          return NoProposal();
-        }
-        else {
-          return WorkList();
-        }
-      },
-    );
+Widget EmployerWork(var document) {
+  if (document == null) {
+    document = userid;
   }
+
+
+  return StreamBuilder<QuerySnapshot>(
+    stream: firestore.collection(ProposalsInformation).snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        final userdocument = snapshot.data.documents;
+
+        for (var documents in userdocument) {
+          if (documents['EmployerID'] == document) {
+            return SubmittedProposalsList(document);
+          }
+        }
+        return NoProposal();
+      }
+      else {
+        return WorkList();
+      }
+    },
+  );
 }
 
 

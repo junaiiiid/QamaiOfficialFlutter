@@ -9,6 +9,8 @@ import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/widgets/settings_dialog.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/radar_scaffold.dart';
+import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/search_scaffold.dart';
 import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
@@ -107,6 +109,20 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
           ],
           onTap: (index) {
             switch (index) {
+              case 1:
+                {
+                  setState(() {
+                    body = Search();
+                  });
+                  break;
+                }
+              case 2:
+                {
+                  setState(() {
+                    body = RadarMap();
+                  });
+                  break;
+                }
               case 3:
                 {
                   setState(() {

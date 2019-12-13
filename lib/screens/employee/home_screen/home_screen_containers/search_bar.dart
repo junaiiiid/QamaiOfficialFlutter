@@ -15,14 +15,14 @@ class _MySearchBarState extends State<MySearchBar> {
   final AppBarController appBarController = AppBarController();
 
   //PEOPLE SEARCH
-  var queryResultSet = [];
-  var tempSearchStore = [];
+  var peopleResultSet = [];
+  var peopleSearchStore = [];
 
   initiatePeopleSearch(value) {
     if (value.length == 0) {
       setState(() {
-        queryResultSet = [];
-        tempSearchStore = [];
+        peopleResultSet = [];
+        peopleSearchStore = [];
       });
     }
 
@@ -31,18 +31,18 @@ class _MySearchBarState extends State<MySearchBar> {
 
     value=capitalizedValue;
 
-    if (queryResultSet.length == 0 && value.length == 1) {
+    if (peopleResultSet.length == 0 && value.length == 1) {
       SearchService().searchPeople(value).then((QuerySnapshot docs) {
         for (int i = 0; i < docs.documents.length; ++i) {
-          queryResultSet.add(docs.documents[i].data);
+          peopleResultSet.add(docs.documents[i].data);
         }
       });
     } else {
-      tempSearchStore = [];
-      queryResultSet.forEach((element) {
+      peopleSearchStore = [];
+      peopleResultSet.forEach((element) {
         if (element['FullName'].startsWith(capitalizedValue)) {
           setState(() {
-            tempSearchStore.add(element);
+            peopleSearchStore.add(element);
           });
         }
       });
@@ -50,14 +50,14 @@ class _MySearchBarState extends State<MySearchBar> {
   }
 
   //JOB SEARCH
-  var queryResultSet1 = [];
-  var tempSearchStore1 = [];
+  var employerResultSet = [];
+  var employerSearchStore = [];
 
   initiateJobSearch(value) {
     if (value.length == 0) {
       setState(() {
-        queryResultSet1 = [];
-        tempSearchStore1 = [];
+        employerResultSet = [];
+        employerSearchStore = [];
       });
     }
 
@@ -66,18 +66,18 @@ class _MySearchBarState extends State<MySearchBar> {
 
     value=capitalizedValue;
 
-    if (queryResultSet1.length == 0 && value.length == 1) {
+    if (employerResultSet.length == 0 && value.length == 1) {
       SearchService().searchJob(value).then((QuerySnapshot docs) {
         for (int i = 0; i < docs.documents.length; ++i) {
-          queryResultSet1.add(docs.documents[i].data);
+          employerResultSet.add(docs.documents[i].data);
         }
       });
     } else {
-      tempSearchStore1 = [];
-      queryResultSet1.forEach((element) {
+      employerSearchStore = [];
+      employerResultSet.forEach((element) {
         if (element['EmployerName'].startsWith(capitalizedValue)) {
           setState(() {
-            tempSearchStore1.add(element);
+            employerSearchStore.add(element);
           });
         }
       });
@@ -85,14 +85,14 @@ class _MySearchBarState extends State<MySearchBar> {
   }
 
   //INTERNSHIP SEARCH
-  var queryResultSet2 = [];
-  var tempSearchStore2 = [];
+  var internshipResultSet = [];
+  var internshipSearchStore = [];
 
   initiateInternshipSearch(value) {
     if (value.length == 0) {
       setState(() {
-        queryResultSet2 = [];
-        tempSearchStore2 = [];
+        internshipResultSet = [];
+        internshipSearchStore = [];
       });
     }
 
@@ -101,18 +101,18 @@ class _MySearchBarState extends State<MySearchBar> {
 
     value=capitalizedValue;
 
-    if (queryResultSet2.length == 0 && value.length == 1) {
+    if (internshipResultSet.length == 0 && value.length == 1) {
       SearchService().searchInternship(value).then((QuerySnapshot docs) {
         for (int i = 0; i < docs.documents.length; ++i) {
-          queryResultSet2.add(docs.documents[i].data);
+          internshipResultSet.add(docs.documents[i].data);
         }
       });
     } else {
-      tempSearchStore2 = [];
-      queryResultSet2.forEach((element) {
+      internshipSearchStore = [];
+      internshipResultSet.forEach((element) {
         if (element['EmployerName'].startsWith(capitalizedValue)) {
           setState(() {
-            tempSearchStore2.add(element);
+            internshipSearchStore.add(element);
           });
         }
       });
@@ -208,9 +208,11 @@ class _MySearchBarState extends State<MySearchBar> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SearchResultList(tempSearchStore: tempSearchStore, item:1,),
-                SearchResultList(tempSearchStore: tempSearchStore1,item:2,),
-                SearchResultList(tempSearchStore: tempSearchStore2,item:3,),
+                SearchResultList(tempSearchStore: peopleSearchStore, item: 1,),
+                SearchResultList(
+                  tempSearchStore: employerSearchStore, item: 2,),
+                SearchResultList(
+                  tempSearchStore: internshipSearchStore, item: 3,),
               ],
             ),
           ),

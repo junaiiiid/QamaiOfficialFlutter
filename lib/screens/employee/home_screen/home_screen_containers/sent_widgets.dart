@@ -1,45 +1,48 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qamai_official/containers/widgets/button.dart';
 import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
-import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
 
 //SENT
 
 class SentList extends StatelessWidget {
+
+  final document;
+
+  SentList(this.document);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection(UserInformation).document(userid).snapshots(),
+      stream: Firestore.instance.collection(UserInformation)
+          .document(document)
+          .snapshots(),
       builder: (context,snapshot){
-        if(snapshot.hasData)
-          {
-            var userDocument=snapshot.data;
-            temp_jobs_list =List.from(userDocument['JobList']);
+        if(snapshot.hasData) {
+          var userDocument=snapshot.data;
+          temp_jobs_list =List.from(userDocument['JobList']);
 
-            List<SentCard> sent_card_list = [];
+          List<SentCard> sent_card_list = [];
 
-            for(var v in temp_jobs_list)
-              {
-                final sent_card= SentCard(
-                  SentName(v),
-                  SentDescription(v),
-                  SentRate(v),
-                  SentCategory(v),
-                  SentProfilePicture(v),
-                  SentButton(v),
-                );
-
-                sent_card_list.add(sent_card);
-              }
-            return ListView(
-              children: sent_card_list,
+          for(var v in temp_jobs_list) {
+            final sent_card= SentCard(
+              SentName(v),
+              SentDescription(v),
+              SentRate(v),
+              SentCategory(v),
+              SentProfilePicture(v),
+              SentButton(v),
             );
+
+            sent_card_list.add(sent_card);
           }
+          return ListView(
+            children: sent_card_list,
+          );
+        }
         else{
           return Center(
             child: Text(

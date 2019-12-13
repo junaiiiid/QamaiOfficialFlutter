@@ -129,13 +129,11 @@ Future Register(BuildContext context) async {
 }
 
 Future LogIn(BuildContext context) async {
-  ThemeService themeService = Provider.of<ThemeService>(context);
   try {
     FirebaseUser user = (await _Auth.signInWithEmailAndPassword(
         email: getEmail(), password: getPass()))
         .user;
     if (user.isEmailVerified) {
-      themeService.switchToThemeB();
       //Navigator.pushNamed(context, HomeScreen.id);
       Navigator.push(
         context,
@@ -235,16 +233,12 @@ Future ResetPassword(BuildContext context) async {
 
 Future LogOut(BuildContext context) async {
   await _Auth.signOut();
-  ThemeService themeService = Provider.of<ThemeService>(context);
-  themeService.switchToThemeA();
-
   Navigator.pop(context);
   Navigator.pop(context);
   Navigator.pushNamed(context, WelcomeScreen.id);
 }
 
 Widget ExistingUser(BuildContext context) {
-  ThemeService themeService = Provider.of<ThemeService>(context);
   return FutureBuilder<FirebaseUser>(
       future: _Auth.currentUser(),
       builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
@@ -252,7 +246,6 @@ Widget ExistingUser(BuildContext context) {
           FirebaseUser user = snapshot.data; // this is your user instance
           /// is because there is user already logged
           if (user.isEmailVerified) {
-            themeService.switchToThemeB();
             return RelevantHomeScreen();
           }
         }
