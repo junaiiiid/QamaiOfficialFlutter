@@ -3,8 +3,13 @@ String _Position;
 String _Description;
 String _Rate;
 String _ratecategory;
+String _Location;
 String _Timestart;
 String _Timeend;
+
+void setLocation(String location) {
+  _Location = location;
+}
 
 void setCategory(String category) {
   _category = category;
@@ -52,6 +57,10 @@ String getDescription() {
 
 String getTime() {
   return '$_Timestart to $_Timeend';
+}
+
+String getLocation() {
+  return _Location;
 }
 
 /*void ClearAllinfo(){

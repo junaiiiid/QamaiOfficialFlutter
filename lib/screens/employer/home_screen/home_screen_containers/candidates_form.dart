@@ -133,7 +133,7 @@ class CandidatesWidgetList extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return SearchResultCards(
-                        snapshot.data, 'FullName', 'Story', context, 1);
+                        snapshot.data, 'FullName', 'Story', 1, candidate);
                   } else {
                     return Text('Loading');
                   }

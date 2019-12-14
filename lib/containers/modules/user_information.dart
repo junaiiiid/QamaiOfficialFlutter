@@ -1,8 +1,8 @@
 
 
 import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/screens/signup_screen.dart';
-import 'package:qamai_official/screens/signup_screen2.dart';
+import 'package:qamai_official/screens/starting_screens/signup_screen.dart';
+import 'package:qamai_official/screens/starting_screens/signup_screen2.dart';
 
 String _FirstName;
 String _LastName;

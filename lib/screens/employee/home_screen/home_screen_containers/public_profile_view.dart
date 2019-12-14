@@ -4,14 +4,15 @@ import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 
 
 //PEOPLE
 class PublicProfilePeople extends StatelessWidget {
-  final data;
+  final data, userID;
 
-  PublicProfilePeople(this.data);
+  PublicProfilePeople(this.data, this.userID);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class PublicProfilePeople extends StatelessWidget {
               ),
               body: TabBarView(
                 children: <Widget>[
-                  WorkList(),
+                  EmployeeWork(userID),
                   ReviewsList(),
                 ],
               ),
@@ -151,9 +152,9 @@ class PublicProfileOverview extends StatelessWidget {
 
 //JOBS
 class PublicProfileJobs extends StatelessWidget {
-  final data;
+  final data, userID;
 
-  PublicProfileJobs(this.data);
+  PublicProfileJobs(this.data, this.userID);
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +162,7 @@ class PublicProfileJobs extends StatelessWidget {
       child: Scaffold(
           backgroundColor: White,
           body: DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(260),
@@ -202,6 +203,12 @@ class PublicProfileJobs extends StatelessWidget {
                         ),
                         Tab(
                           icon: Icon(
+                            OMIcons.assignment,
+                            size: 25,
+                          ),
+                        ),
+                        Tab(
+                          icon: Icon(
                             OMIcons.starBorder,
                             size: 25,
                           ),
@@ -214,6 +221,7 @@ class PublicProfileJobs extends StatelessWidget {
               body: TabBarView(
                 children: <Widget>[
                   JobList(data: data,),
+                  EmployerWork(userID),
                   ReviewsList(),
                 ],
               ),
@@ -355,9 +363,9 @@ class JobList extends StatelessWidget {
 //INTERNSHIP
 
 class PublicProfileInternship extends StatelessWidget {
-  final data;
+  final data, userID;
 
-  PublicProfileInternship(this.data);
+  PublicProfileInternship(this.data, this.userID);
 
   @override
   Widget build(BuildContext context) {
@@ -365,7 +373,7 @@ class PublicProfileInternship extends StatelessWidget {
       child: Scaffold(
           backgroundColor: White,
           body: DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(260),
@@ -406,6 +414,12 @@ class PublicProfileInternship extends StatelessWidget {
                         ),
                         Tab(
                           icon: Icon(
+                            OMIcons.assignment,
+                            size: 25,
+                          ),
+                        ),
+                        Tab(
+                          icon: Icon(
                             OMIcons.starBorder,
                             size: 25,
                           ),
@@ -418,6 +432,7 @@ class PublicProfileInternship extends StatelessWidget {
               body: TabBarView(
                 children: <Widget>[
                   InternshipList(data: data,),
+                  EmployerWork(userID),
                   ReviewsList(),
                 ],
               ),

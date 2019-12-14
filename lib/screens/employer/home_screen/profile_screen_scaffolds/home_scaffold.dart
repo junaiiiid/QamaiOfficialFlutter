@@ -4,17 +4,18 @@ import 'package:qamai_official/constants.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class Home extends StatelessWidget {
+class EmployerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return HomeList();
+    return EmployerHomeList();
   }
 }
 
-class YourProgressWidget extends StatelessWidget {
+class EmployerProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -129,7 +130,7 @@ class YourProgressWidget extends StatelessWidget {
                         ),
                       ),
                       AutoSizeText(
-                        'Applied',
+                        'Provided',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Raleway',
@@ -190,14 +191,14 @@ class YourProgressWidget extends StatelessWidget {
   }
 }
 
-class HomeList extends StatelessWidget {
+class EmployerHomeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        HomeProfileVerified(),
-        YourProgressWidget(),
-        HomeProgressReport(),
+        EmployerHomeProfileVerified(),
+        EmployerProgressWidget(),
+        EmployerHomeProgressReport(),
         SizedBox(
           height: 20,
         ),
@@ -206,40 +207,45 @@ class HomeList extends StatelessWidget {
   }
 }
 
-class HomeProgressReport extends StatelessWidget {
+class EmployerHomeProgressReport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getUser();
-    return StreamBuilder(
-      stream: Firestore.instance
-          .collection(UserInformation)
-          .document(userid)
-          .snapshots(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestore.collection(ProposalsInformation).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var userDocument = snapshot.data;
+          var userDocument = snapshot.data.documents;
 
-          final proposals = List.from(userDocument['JobList']);
-          final interviews = List.from(userDocument['Interviews']);
+          int proposals = 0;
+          int interviews = 0;
 
-          return HomeProgressReportWidget(
-            proposals: proposals.length,
-            interviews: interviews.length,
+          for (var documents in userDocument) {
+            if (documents.data['EmployerID'] == userid) {
+              proposals++;
+            }
+          }
+
+          return EmployerHomeProgressReportWidget(
+            proposals: proposals,
+            interviews: interviews,
           );
         } else {
-          return HomeProgressReportWidget();
+          return EmployerHomeProgressReportWidget();
         }
       },
     );
   }
 }
 
-class HomeProgressReportWidget extends StatelessWidget {
+class EmployerHomeProgressReportWidget extends StatelessWidget {
   final proposals;
   final interviews;
   final rating;
 
-  HomeProgressReportWidget({this.proposals, this.interviews, this.rating = 0});
+  EmployerHomeProgressReportWidget(
+      {this.proposals, this.interviews, this.rating = 0});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -307,7 +313,7 @@ class HomeProgressReportWidget extends StatelessWidget {
                               ),
                             ),
                             AutoSizeText(
-                              'Proposals Sent',
+                              'Proposals Submitted',
                               maxLines: 2,
                               style: TextStyle(
                                 fontFamily: 'Raleway',
@@ -406,12 +412,12 @@ class HomeProgressReportWidget extends StatelessWidget {
   }
 }
 
-class HomeProfileVerifiedWidget extends StatelessWidget {
+class EmployerHomeProfileVerifiedWidget extends StatelessWidget {
   final first_widget;
   final second_widget;
   final third_widget;
 
-  HomeProfileVerifiedWidget(
+  EmployerHomeProfileVerifiedWidget(
       this.first_widget, this.second_widget, this.third_widget);
 
   @override
@@ -445,7 +451,7 @@ class HomeProfileVerifiedWidget extends StatelessWidget {
   }
 }
 
-class HomeProfileVerified extends StatelessWidget {
+class EmployerHomeProfileVerified extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getUser();
@@ -458,47 +464,205 @@ class HomeProfileVerified extends StatelessWidget {
         if (snapshot.hasData) {
           var userDocument = snapshot.data;
 
-          var firstWidget = Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: CircleAvatar(
-                  radius: 32,
-                  backgroundColor: QamaiThemeColor,
-                  backgroundImage: NetworkImage(userDocument['ProfilePicture']),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
-                child: Text(
-                  userDocument['FirstName'],
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    color: QamaiThemeColor,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
-                child: Text(
-                  userDocument['LastName'],
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    color: QamaiThemeColor,
-                  ),
-                ),
-              ),
-            ],
-          );
+          var firstWidget;
+
+          if (userDocument['EmployerProfile'] == 'Internship') {
+            firstWidget = StreamBuilder(
+              stream: Firestore.instance
+                  .collection(InternshipInformation)
+                  .document(userid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CircleAvatar(
+                          radius: 32,
+                          backgroundColor: QamaiThemeColor,
+                          backgroundImage:
+                              NetworkImage(snapshot.data['ProfilePicture']),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 12, right: 12, top: 12),
+                        child: Text(
+                          snapshot.data['EmployerName'],
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, bottom: 12),
+                        child: Text(
+                          snapshot.data['EmployerTitle'],
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: QamaiThemeColor,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 12, right: 12, top: 12),
+                        child: Text(
+                          'LOADING...',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, bottom: 12),
+                        child: Text(
+                          'LOADING...',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+            );
+          } else if (userDocument['EmployerProfile'] == 'Job') {
+            firstWidget = StreamBuilder(
+              stream: Firestore.instance
+                  .collection(WorkInformation)
+                  .document(userid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CircleAvatar(
+                          radius: 32,
+                          backgroundColor: QamaiThemeColor,
+                          backgroundImage:
+                              NetworkImage(snapshot.data['ProfilePicture']),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 12, right: 12, top: 12),
+                        child: Text(
+                          snapshot.data['EmployerName'],
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, bottom: 12),
+                        child: Text(
+                          snapshot.data['EmployerTitle'],
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: QamaiThemeColor,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 12, right: 12, top: 12),
+                        child: Text(
+                          'LOADING...',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, bottom: 12),
+                        child: Text(
+                          'LOADING...',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: QamaiThemeColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+            );
+          }
 
           var secondWidget;
 
@@ -519,7 +683,7 @@ class HomeProfileVerified extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
                   child: Text(
-                    'Avaliable',
+                    'Providing',
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -534,7 +698,7 @@ class HomeProfileVerified extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 12, right: 12, bottom: 12),
                   child: Text(
-                    'For Work',
+                    'Work',
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -562,7 +726,7 @@ class HomeProfileVerified extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
                   child: Text(
-                    'Not Avaliable',
+                    'Not Providing',
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -577,7 +741,7 @@ class HomeProfileVerified extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 12, right: 12, bottom: 12),
                   child: Text(
-                    'For Work',
+                    'Work',
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -680,7 +844,7 @@ class HomeProfileVerified extends StatelessWidget {
             );
           }
 
-          return HomeProfileVerifiedWidget(
+          return EmployerHomeProfileVerifiedWidget(
               firstWidget, secondWidget, thirdWidget);
         } else {
           return Container(

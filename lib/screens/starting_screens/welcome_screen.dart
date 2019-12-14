@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qamai_official/containers/widgets/image_slider.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:qamai_official/containers/widgets/button.dart';
-import '../theme.dart';
+import '../../theme.dart';
 import 'login_screen.dart';
 import 'signup_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:qamai_official/containers/modules/timed_work_search.dart';
 import 'package:simple_search_bar/simple_search_bar.dart';
 import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/database/firebase.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_result.dart';
+
+import 'desired_time_widget.dart';
+
 
 class MySearchBar extends StatefulWidget {
   @override
@@ -14,126 +16,22 @@ class MySearchBar extends StatefulWidget {
 class _MySearchBarState extends State<MySearchBar> {
   final AppBarController appBarController = AppBarController();
 
-  //PEOPLE SEARCH
-  var peopleResultSet = [];
-  var peopleSearchStore = [];
-
-  initiatePeopleSearch(value) {
-    if (value.length == 0) {
-      setState(() {
-        peopleResultSet = [];
-        peopleSearchStore = [];
-      });
-    }
-
-    var capitalizedValue =
-        value.substring(0, 1).toUpperCase() + value.substring(1);
-
-    value=capitalizedValue;
-
-    if (peopleResultSet.length == 0 && value.length == 1) {
-      SearchService().searchPeople(value).then((QuerySnapshot docs) {
-        for (int i = 0; i < docs.documents.length; ++i) {
-          peopleResultSet.add(docs.documents[i].data);
-        }
-      });
-    } else {
-      peopleSearchStore = [];
-      peopleResultSet.forEach((element) {
-        if (element['FullName'].startsWith(capitalizedValue)) {
-          setState(() {
-            peopleSearchStore.add(element);
-          });
-        }
-      });
-    }
-  }
-
-  //JOB SEARCH
-  var employerResultSet = [];
-  var employerSearchStore = [];
-
-  initiateJobSearch(value) {
-    if (value.length == 0) {
-      setState(() {
-        employerResultSet = [];
-        employerSearchStore = [];
-      });
-    }
-
-    var capitalizedValue =
-        value.substring(0, 1).toUpperCase() + value.substring(1);
-
-    value=capitalizedValue;
-
-    if (employerResultSet.length == 0 && value.length == 1) {
-      SearchService().searchJob(value).then((QuerySnapshot docs) {
-        for (int i = 0; i < docs.documents.length; ++i) {
-          employerResultSet.add(docs.documents[i].data);
-        }
-      });
-    } else {
-      employerSearchStore = [];
-      employerResultSet.forEach((element) {
-        if (element['EmployerName'].startsWith(capitalizedValue)) {
-          setState(() {
-            employerSearchStore.add(element);
-          });
-        }
-      });
-    }
-  }
-
-  //INTERNSHIP SEARCH
-  var internshipResultSet = [];
-  var internshipSearchStore = [];
-
-  initiateInternshipSearch(value) {
-    if (value.length == 0) {
-      setState(() {
-        internshipResultSet = [];
-        internshipSearchStore = [];
-      });
-    }
-
-    var capitalizedValue =
-        value.substring(0, 1).toUpperCase() + value.substring(1);
-
-    value=capitalizedValue;
-
-    if (internshipResultSet.length == 0 && value.length == 1) {
-      SearchService().searchInternship(value).then((QuerySnapshot docs) {
-        for (int i = 0; i < docs.documents.length; ++i) {
-          internshipResultSet.add(docs.documents[i].data);
-        }
-      });
-    } else {
-      internshipSearchStore = [];
-      internshipResultSet.forEach((element) {
-        if (element['EmployerName'].startsWith(capitalizedValue)) {
-          setState(() {
-            internshipSearchStore.add(element);
-          });
-        }
-      });
-    }
-  }
-
-
-
+  Widget peopleList;
+  Widget workEmployersList;
+  Widget internshipEmployersList;
 
   @override
   void initState() {
-    // TODO: implement initState
-    setState(() {
-    });
+    peopleList = PeopleSearchResult();
+    workEmployersList = WorkEmployerSearchResult();
+    internshipEmployersList = InternshipEmployerSearchResult();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: DefaultTabController(
-          length: 3,
+          length: 4,
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(120),
@@ -148,11 +46,13 @@ class _MySearchBarState extends State<MySearchBar> {
                     searchHint: "Search",
                     mainTextColor: QamaiThemeColor,
                     onChange: (String value) {
-
-                      initiatePeopleSearch(value);
-                      initiateJobSearch(value);
-                      initiateInternshipSearch(value);
-
+                      setState(() {
+                        peopleList = PeopleSearchResult(value: value,);
+                        workEmployersList =
+                            WorkEmployerSearchResult(value: value,);
+                        internshipEmployersList =
+                            InternshipEmployerSearchResult(value: value,);
+                      });
                     },
                     //Will show when SEARCH MODE wasn't active
                     mainAppBar: AppBar(
@@ -197,7 +97,13 @@ class _MySearchBarState extends State<MySearchBar> {
                       ),
                       Tab(
                         icon: Icon(
-                          Ionicons.getIconData("md-ribbon"),
+                          Ionicons.getIconData("ios-school"),
+                          size: 25,
+                        ),
+                      ),
+                      Tab(
+                        icon: Icon(
+                          Ionicons.getIconData("ios-time"),
                           size: 25,
                         ),
                       ),
@@ -208,11 +114,16 @@ class _MySearchBarState extends State<MySearchBar> {
             ),
             body: TabBarView(
               children: <Widget>[
-                SearchResultList(tempSearchStore: peopleSearchStore, item: 1,),
-                SearchResultList(
-                  tempSearchStore: employerSearchStore, item: 2,),
-                SearchResultList(
-                  tempSearchStore: internshipSearchStore, item: 3,),
+                peopleList,
+                workEmployersList,
+                internshipEmployersList,
+                DesiredTimeWorkFront(onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DesiredTimeWorkBack(getTime())),
+                  );
+                },),
               ],
             ),
           ),
@@ -220,4 +131,5 @@ class _MySearchBarState extends State<MySearchBar> {
     );
   }
 }
+
 

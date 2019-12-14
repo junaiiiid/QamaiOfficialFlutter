@@ -7,7 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:qamai_official/containers/modules/regular_expression.dart';
 import 'package:qamai_official/database/firebase.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:qamai_official/screens/login_screen.dart';
+import 'package:qamai_official/screens/starting_screens/login_screen.dart';
 
 
 class ForgotPasswordScreen extends StatefulWidget {

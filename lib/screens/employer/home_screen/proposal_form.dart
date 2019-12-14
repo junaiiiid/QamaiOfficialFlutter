@@ -105,6 +105,9 @@ class _ProposalFormState extends State<ProposalForm> {
             EmployerFormBigTextFields('Proposal Description', (value) {
               setDescription(value);
             }, 500),
+            EmployerFormTextFields('Job Location', (value) {
+              setLocation(value);
+            }, 500),
             EmployerFormTextFields('Time Start', (value) {
               setTimestart(value);
             }, 5),
@@ -220,6 +223,7 @@ void PublishProposal() {
             'ProposalDescription': getDescription(),
             'Rate': getRate(),
             'Time': getTime(),
+            'Location': getLocation(),
             'CandidateList': [],
           });
         });
@@ -235,6 +239,7 @@ void PublishProposal() {
             'ProposalDescription': getDescription(),
             'Rate': getRate(),
             'Time': getTime(),
+            'Location': getLocation(),
             'CandidateList': [],
           });
         });

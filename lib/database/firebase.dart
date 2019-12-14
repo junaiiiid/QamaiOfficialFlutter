@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:qamai_official/containers/modules/employer_information.dart'
 as employer;
 import 'package:qamai_official/database/firebase_data_reciever.dart';
-import 'package:qamai_official/screens/forgot_password.dart';
-import 'package:qamai_official/screens/welcome_screen.dart';
+import 'package:qamai_official/screens/starting_screens/forgot_password.dart';
+import 'package:qamai_official/screens/starting_screens/welcome_screen.dart';
 import 'package:qamai_official/theme.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:qamai_official/constants.dart';
@@ -17,7 +17,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/containers/modules/alert_strings.dart';
-import 'package:qamai_official/screens/login_screen.dart';
+import 'package:qamai_official/screens/starting_screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:qamai_official/screens/employer/home_screen/home_screen.dart'
 as Employer;
@@ -415,30 +415,6 @@ Future UpdateAvailability(bool value) async {
   });
 }
 
-//SEARCHER
-
-class SearchService {
-  searchPeople(String searchField) {
-    return Firestore.instance
-        .collection('UserInformation')
-        .where('FullName', isGreaterThanOrEqualTo: searchField)
-        .getDocuments();
-  }
-
-  searchJob(String searchField) {
-    return Firestore.instance
-        .collection('WorkInformation')
-        .where('EmployerName', isGreaterThanOrEqualTo: searchField)
-        .getDocuments();
-  }
-
-  searchInternship(String searchField) {
-    return Firestore.instance
-        .collection('InternshipInformation')
-        .where('EmployerName', isGreaterThanOrEqualTo: searchField)
-        .getDocuments();
-  }
-}
 
 //UpdateJobsList returner
 

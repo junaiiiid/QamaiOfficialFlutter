@@ -401,6 +401,24 @@ class JobDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Text(
+            'Location :',
+            style: TextStyle(
+                fontFamily: 'Montserrat',
+                color: QamaiThemeColor,
+                fontSize: 12.0),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text(
+            '${data['Location']}',
+            style: TextStyle(
+                fontFamily: 'Raleway', color: QamaiThemeColor, fontSize: 12.0),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          child: Text(
             'Timings :',
             style: TextStyle(
                 fontFamily: 'Montserrat',

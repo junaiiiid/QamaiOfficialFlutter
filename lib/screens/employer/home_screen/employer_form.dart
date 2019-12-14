@@ -91,10 +91,10 @@ class _EmployerFormState extends State<EmployerForm> {
                       setEmail(null);
                     }
                   }
-                }, 25),
+                }, 320),
             EmployerFormBigTextFields('Organization Description', (value) {
               setDescription(value);
-            }, 100),
+            }, 400),
             Button(
               color: QamaiThemeColor,
               text: 'REGISTER',

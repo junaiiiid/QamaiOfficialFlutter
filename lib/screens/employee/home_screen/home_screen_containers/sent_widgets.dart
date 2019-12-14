@@ -34,7 +34,8 @@ class SentList extends StatelessWidget {
               SentRate(v),
               SentCategory(v),
               SentProfilePicture(v),
-              SentButton(v),
+              (document == userid) ? SentButton(v) : DisabledButton(
+                color: LightGray, text: 'APPLIED',),
             );
 
             sent_card_list.add(sent_card);

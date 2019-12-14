@@ -155,7 +155,9 @@ class SubmittedProposalsList extends StatelessWidget {
                 Rate,
                 Category,
                 ProposalProfilePicture(EmployerProfile, EmployerID),
-                DeleteProposalButton(docRef),
+                (document == userid)
+                    ? DeleteProposalButton(docRef)
+                    : DisabledButton(color: LightGray, text: 'POSTED',),
                 docRef,
                 EmployerProfile,
                 proposal,
