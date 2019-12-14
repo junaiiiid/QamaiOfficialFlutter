@@ -196,48 +196,6 @@ class SubmittedProposalsList extends StatelessWidget {
   }
 }
 
-class DeleteProposalButton extends StatelessWidget {
-  final Proposal;
-
-  DeleteProposalButton(this.Proposal);
-
-  @override
-  Widget build(BuildContext context) {
-    return Button(
-      color: Red,
-      text: 'DELETE',
-      onpress: () {
-        DeleteProposal(Proposal);
-        RemoveJobs(Proposal);
-      },
-    );
-  }
-}
-
-class ViewCandidatesButton extends StatelessWidget {
-  final Proposal;
-
-  ViewCandidatesButton(this.Proposal);
-
-  @override
-  Widget build(BuildContext context) {
-    return Button(
-      color: QamaiGreen,
-      text: 'CANDIDATES',
-      onpress: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CandidatesForm(Proposal)),
-        );
-      },
-    );
-  }
-}
-
-void DeleteProposal(var docref) {
-  Firestore.instance.collection(ProposalsInformation).document(docref).delete();
-}
-
 class RecievedProposalsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -259,7 +217,7 @@ class RecievedProposalsList extends StatelessWidget {
               final EmployerProfile = proposal.data['EmployerProfile'];
               final EmployerID = proposal.data['EmployerID'];
 
-              final docRef = proposal.documentID;
+              final ProposalID = proposal.documentID;
 
               final proposal_card = ProposalCard(
                 EmployerName,
@@ -267,8 +225,8 @@ class RecievedProposalsList extends StatelessWidget {
                 Rate,
                 Category,
                 ProposalProfilePicture(EmployerProfile, EmployerID),
-                ViewCandidatesButton(docRef),
-                docRef,
+                ViewCandidatesButton(ProposalID, EmployerID),
+                ProposalID,
                 EmployerProfile,
                 proposal,
               );
@@ -305,6 +263,51 @@ class RecievedProposalsList extends StatelessWidget {
     );
   }
 }
+
+class DeleteProposalButton extends StatelessWidget {
+  final Proposal;
+
+  DeleteProposalButton(this.Proposal);
+
+  @override
+  Widget build(BuildContext context) {
+    return Button(
+      color: Red,
+      text: 'DELETE',
+      onpress: () {
+        DeleteProposal(Proposal);
+        RemoveJobs(Proposal);
+      },
+    );
+  }
+}
+
+class ViewCandidatesButton extends StatelessWidget {
+  final ProposalID, EmployerID;
+
+  ViewCandidatesButton(this.ProposalID, this.EmployerID);
+
+  @override
+  Widget build(BuildContext context) {
+    return Button(
+      color: QamaiGreen,
+      text: 'CANDIDATES',
+      onpress: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CandidatesForm(ProposalID, EmployerID)),
+        );
+      },
+    );
+  }
+}
+
+void DeleteProposal(var docref) {
+  Firestore.instance.collection(ProposalsInformation).document(docref).delete();
+}
+
+
 
 
 

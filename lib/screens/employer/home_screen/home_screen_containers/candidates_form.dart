@@ -3,13 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_card.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/interviews_module.dart';
 
 import '../../../../constants.dart';
 
 class CandidatesForm extends StatelessWidget {
-  final Proposal;
+  final ProposalID, EmployerID;
 
-  CandidatesForm(this.Proposal);
+  CandidatesForm(this.ProposalID, this.EmployerID);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class CandidatesForm extends StatelessWidget {
           ],
         ),
       ),
-      body: CandidatesWidgetList(Proposal),
+      body: CandidatesWidgetList(ProposalID, EmployerID),
     );
   }
 }
@@ -93,16 +94,16 @@ class CandidatesFormHeader extends StatelessWidget {
 }
 
 class CandidatesWidgetList extends StatelessWidget {
-  final Proposal;
+  final ProposalID, EmployerID;
 
-  CandidatesWidgetList(this.Proposal);
+  CandidatesWidgetList(this.ProposalID, this.EmployerID);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: Firestore.instance
           .collection(ProposalsInformation)
-          .document(Proposal)
+          .document(ProposalID)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -132,15 +133,19 @@ class CandidatesWidgetList extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return SearchResultCards(
-                        snapshot.data, 'FullName', 'Story', 1, candidate);
+                    var EmployeeID = candidate;
+
+                    return CandidateCard(
+                      SearchResultCards(
+                          snapshot.data, 'FullName', 'Story', 1, candidate),
+                      EmployeeID, EmployerID, ProposalID,
+                    );
                   } else {
                     return Text('Loading');
                   }
                 },
               ));
             }
-
             return ListView(
               children: candidates_widgets,
             );
@@ -151,6 +156,37 @@ class CandidatesWidgetList extends StatelessWidget {
           );
         }
       },
+    );
+  }
+}
+
+class CandidateCard extends StatelessWidget {
+  final search_result_card;
+  final EmployeeID, EmployerID, ProposalID;
+
+  CandidateCard(this.search_result_card,
+      this.EmployeeID, this.EmployerID, this.ProposalID);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: Container(
+        height: 160,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: QamaiThemeColor,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            search_result_card,
+            InviteForInterviewButton(EmployeeID: EmployeeID,
+              EmployerID: EmployerID,
+              ProposalID: ProposalID,),
+          ],
+        ),
+      ),
     );
   }
 }

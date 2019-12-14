@@ -225,6 +225,7 @@ void PublishProposal() {
             'Time': getTime(),
             'Location': getLocation(),
             'CandidateList': [],
+            'Interviews': [],
           });
         });
       } else if (userDocument['EmployerProfile'] == 'Job') {
@@ -241,6 +242,7 @@ void PublishProposal() {
             'Time': getTime(),
             'Location': getLocation(),
             'CandidateList': [],
+            'Interviews': [],
           });
         });
       }
