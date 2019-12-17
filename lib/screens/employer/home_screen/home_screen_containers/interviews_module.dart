@@ -178,7 +178,7 @@ class InterviewCardsList extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) =>
                             ChatScreen(
-                                interview,
+                                interview.documentID,
                                 interview.data['EmployeeID'],
                                 ChatProfilePicture,
                                 CandidateDetails)),
@@ -248,12 +248,10 @@ class InterviewChatContainers extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: IconButton(
-                      icon: Icon(
-                        OMIcons.verifiedUser,
-                        size: 30,
-                        color: QamaiGreen,
-                      ),
+                    child: Icon(
+                      OMIcons.verifiedUser,
+                      size: 30,
+                      color: QamaiGreen,
                     ),
                   ),
                 ],

@@ -76,7 +76,7 @@ class EmployeeInterviewCardsList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ChatScreen(
-                            interview,
+                            interview.documentID,
                             interview.data['EmployeeID'],
                             ChatProfilePicture,
                             CandidateDetails)),

@@ -431,9 +431,25 @@ class BubbleWidgets extends StatelessWidget {
           var interviews = snapshot.data.documents;
 
           for (var interview in interviews) {
-            var bubble = BubbleSender(
-                interview['MessageSender'], interview['MessageText']);
-            ChatBubbles.add(bubble);
+            ChatBubbles.add(StreamBuilder(
+              stream: Firestore.instance.collection(UserInformation).document(
+                  userid).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var user = snapshot.data;
+                  if ((user['ActiveProfile'] == 'Employee') &&
+                      (user['FullName'] == interview.data['EmployeeID'])) {
+                    return BubbleSender(interview.data['MessageSender'],
+                        interview.data['MessageText']);
+                  }
+                  else if ((user['ActiveProfile'] == 'Employer')) {
+                    return BubbleReceiver(interview.data['MessageSender'],
+                        interview.data['MessageText']);
+                  }
+                }
+                return Center();
+              },
+            ));
           }
           return Expanded(
             child: ListView(
