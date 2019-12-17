@@ -422,27 +422,26 @@ class BubbleWidgets extends StatelessWidget {
       stream: firestore
           .collection(InterviewsInformation)
           .document(InterviewID)
-          .collection('Chat')
-          .orderBy('CreatedAt')
+          .collection('Chat').orderBy('CreatedAt')
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<Widget> ChatBubbles = [];
+          List<Widget> Chatbubbles = [];
           var interviews = snapshot.data.documents;
-
           for (var interview in interviews) {
-            ChatBubbles.add(StreamBuilder(
+            Chatbubbles.add(StreamBuilder(
               stream: Firestore.instance.collection(UserInformation).document(
-                  userid).snapshots(),
+                  EmployeeID).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  var user = snapshot.data;
-                  if ((user['ActiveProfile'] == 'Employee') &&
-                      (user['FullName'] == interview.data['EmployeeID'])) {
+                  var userdocument = snapshot.data;
+
+                  if (userdocument['FullName'] ==
+                      interview.data['MessageSender']) {
                     return BubbleSender(interview.data['MessageSender'],
                         interview.data['MessageText']);
                   }
-                  else if ((user['ActiveProfile'] == 'Employer')) {
+                  else {
                     return BubbleReceiver(interview.data['MessageSender'],
                         interview.data['MessageText']);
                   }
@@ -453,8 +452,8 @@ class BubbleWidgets extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              children: Chatbubbles,
               controller: scrollcontroller,
-              children: ChatBubbles,
             ),
           );
         }

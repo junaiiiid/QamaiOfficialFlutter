@@ -234,8 +234,7 @@ Future ResetPassword(BuildContext context) async {
 Future LogOut(BuildContext context) async {
   await _Auth.signOut();
   Navigator.pop(context);
-  Navigator.pop(context);
-  Navigator.pushNamed(context, WelcomeScreen.id);
+  Navigator.pushReplacementNamed(context, WelcomeScreen.id);
 }
 
 Widget ExistingUser(BuildContext context) {
