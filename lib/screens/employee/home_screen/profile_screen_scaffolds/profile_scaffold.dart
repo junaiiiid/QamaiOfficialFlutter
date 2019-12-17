@@ -10,6 +10,8 @@ import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/database/phone_and_email.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/sent_widgets.dart';
 
+import '../../../../theme.dart';
+
 
 class Profile extends StatefulWidget {
 
@@ -22,7 +24,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   void initState() {
-    // TODO: implement initState
+    InitializeHome();
     super.initState();
   }
 

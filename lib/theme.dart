@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'constants.dart';
 
 class ThemeService with ChangeNotifier {
@@ -31,4 +32,25 @@ class ThemeService with ChangeNotifier {
     _currentTheme = themeB;
     notifyListeners();
   }
+}
+
+void InitializeHome() {
+  FlutterStatusbarcolor.setStatusBarColor(White);
+  FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
+  FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+}
+
+void InitializeWelcome() async {
+  await FlutterStatusbarcolor.setStatusBarColor(QamaiThemeColor);
+  await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  await FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
+  await FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+}
+
+void InitializeChatScreen() async {
+  await FlutterStatusbarcolor.setStatusBarColor(QamaiThemeColor);
+  await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  await FlutterStatusbarcolor.setNavigationBarColor(White);
+  await FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
 }

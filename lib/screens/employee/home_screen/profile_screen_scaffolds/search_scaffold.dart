@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/search_bar.dart';
+import 'package:qamai_official/theme.dart';
 
 class Search extends StatefulWidget {
   Search({Key key}) : super(key: key);
@@ -10,7 +11,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   @override
   void initState() {
-    // TODO: implement initState
+    InitializeHome();
     super.initState();
   }
 

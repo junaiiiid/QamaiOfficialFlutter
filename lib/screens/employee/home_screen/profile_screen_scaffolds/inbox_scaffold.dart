@@ -4,12 +4,26 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
+import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/interviews_module.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/sent_widgets.dart';
 
+import '../../../../theme.dart';
 
-class Inbox extends StatelessWidget {
 
+class Inbox extends StatefulWidget {
+
+
+  @override
+  _InboxState createState() => _InboxState();
+}
+
+class _InboxState extends State<Inbox> {
+  @override
+  void initState() {
+    InitializeHome();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +79,7 @@ class Inbox extends StatelessWidget {
             children: <Widget>[
               ProposalsList(),
               SentList(userid),
-              Container(),
+              EmployeeInterviewCardsList(),
             ],
           ),
         ),
@@ -97,3 +111,5 @@ class CategoryIconReturner extends StatelessWidget {
     }
   }
 }
+
+

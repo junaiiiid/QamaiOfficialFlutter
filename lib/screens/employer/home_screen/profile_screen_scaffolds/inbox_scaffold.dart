@@ -9,9 +9,21 @@ import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/proposal_widgets.dart';
 import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/candidates_form.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/interviews_module.dart';
 import 'package:qamai_official/screens/employer/home_screen/proposal_form.dart';
+import '../../../../theme.dart';
 
-class EmployerInbox extends StatelessWidget {
+class EmployerInbox extends StatefulWidget {
+  @override
+  _EmployerInboxState createState() => _EmployerInboxState();
+}
+
+class _EmployerInboxState extends State<EmployerInbox> {
+  @override
+  void initState() {
+    InitializeHome();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +89,7 @@ class EmployerInbox extends StatelessWidget {
               NewProposal(),
               SubmittedProposalsList(userid),
               RecievedProposalsList(),
-              Container(),
+              InterviewCardsList(),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:qamai_official/theme.dart';
 
 
 class RadarMap extends StatefulWidget {
@@ -11,6 +12,13 @@ class RadarMap extends StatefulWidget {
 }
 
 class _RadarMapState extends State<RadarMap> {
+
+  @override
+  void initState() {
+    InitializeHome();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

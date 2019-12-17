@@ -7,7 +7,19 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class Home extends StatelessWidget {
+import '../../../../theme.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    InitializeHome();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return HomeList();

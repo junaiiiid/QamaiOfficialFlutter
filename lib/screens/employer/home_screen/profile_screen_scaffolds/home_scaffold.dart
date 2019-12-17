@@ -8,7 +8,19 @@ import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class EmployerHome extends StatelessWidget {
+import '../../../../theme.dart';
+
+class EmployerHome extends StatefulWidget {
+  @override
+  _EmployerHomeState createState() => _EmployerHomeState();
+}
+
+class _EmployerHomeState extends State<EmployerHome> {
+  @override
+  void initState() {
+    InitializeHome();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return EmployerHomeList();

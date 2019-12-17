@@ -11,6 +11,7 @@ import 'package:qamai_official/screens/employer/home_screen/home_screen_containe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import '../../../../theme.dart';
 import 'inbox_scaffold.dart';
 
 class EmployerProfile extends StatefulWidget {
@@ -23,7 +24,7 @@ class EmployerProfile extends StatefulWidget {
 class _EmployerProfileState extends State<EmployerProfile> {
   @override
   void initState() {
-    // TODO: implement initState
+    InitializeHome();
     super.initState();
   }
 

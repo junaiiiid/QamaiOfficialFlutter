@@ -30,13 +30,6 @@ class HomeScreen extends StatefulWidget {
 
 }
 
-void Initialize() {
-  FlutterStatusbarcolor.setStatusBarColor(White);
-  FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-  FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
-  FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
-
-}
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -46,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       themeService.switchToThemeB();
     });
 
-    Initialize();
+    InitializeHome();
     getUser();
     getJobsList();
     super.initState();

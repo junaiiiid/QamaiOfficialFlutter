@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
-import 'constants.dart';
 import 'screens/starting_screens/splash_screen.dart';
 import 'screens/starting_screens/welcome_screen.dart';
 import 'screens/starting_screens/login_screen.dart';
@@ -9,7 +8,6 @@ import 'screens/starting_screens/forgot_password.dart';
 import 'screens/starting_screens/signup_screen.dart';
 import 'screens/starting_screens/signup_screen2.dart';
 import 'screens/employee/home_screen/home_screen.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +17,6 @@ void main() {
   runApp(Theme());
 }
 
-void Initialize() async {
-  await FlutterStatusbarcolor.setStatusBarColor(QamaiThemeColor);
-  await FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-  await FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
-  await FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
-}
 
 class Theme extends StatefulWidget {
   @override
@@ -35,7 +27,7 @@ class _ThemeState extends State<Theme> {
   @override
   void initState() {
     // TODO: implement initState
-    Initialize();
+    InitializeWelcome();
     getUser();
   }
 

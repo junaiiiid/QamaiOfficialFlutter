@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -17,12 +16,6 @@ import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaff
 
 import '../../../theme.dart';
 
-void Initialize() {
-  FlutterStatusbarcolor.setStatusBarColor(White);
-  FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-  FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
-  FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
-}
 
 class EmployerHomeScreen extends StatefulWidget {
   @override
@@ -41,7 +34,7 @@ class _EmployerHomeScreenState extends State<EmployerHomeScreen> {
       themeService.switchToThemeB();
     });
 
-    Initialize();
+    InitializeHome();
     getUser();
     getJobsList();
     super.initState();

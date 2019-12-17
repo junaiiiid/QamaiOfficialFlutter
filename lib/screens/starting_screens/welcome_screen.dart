@@ -10,13 +10,6 @@ import 'signup_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 
-void Initialize(){
-  FlutterStatusbarcolor.setStatusBarColor(QamaiThemeColor);
-  FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-  FlutterStatusbarcolor.setNavigationBarColor(QamaiThemeColor);
-  FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
-}
-
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'WelcomeScreen';
@@ -31,7 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       ThemeService themeService = Provider.of<ThemeService>(context);
       themeService.switchToThemeA();
     });
-    Initialize();
+    InitializeWelcome();
   }
   @override
   Widget build(BuildContext context) {
