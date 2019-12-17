@@ -10,7 +10,7 @@ class EmployeeInterviewCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection(InterviewsInformation).snapshots(),
+      stream: firestore.collection(Interviews).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Widget> ChatContainers = [];

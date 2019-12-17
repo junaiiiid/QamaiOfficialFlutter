@@ -102,7 +102,7 @@ class CandidatesWidgetList extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: Firestore.instance
-          .collection(ProposalsInformation)
+          .collection(Proposals)
           .document(ProposalID)
           .snapshots(),
       builder: (context, snapshot) {

@@ -214,7 +214,7 @@ void PublishProposal() {
       if (userDocument['EmployerProfile'] == 'Internship') {
         internship.get().then((datasnapshot) {
           var internDocument = datasnapshot.data;
-          firestore.collection(ProposalsInformation).add({
+          firestore.collection(Proposals).add({
             'Category': getCategory(),
             'EmployerProfile': userDocument['EmployerProfile'],
             'EmployerID': userid,
@@ -231,7 +231,7 @@ void PublishProposal() {
       } else if (userDocument['EmployerProfile'] == 'Job') {
         work.get().then((datasnapshot) {
           var workDocument = datasnapshot.data;
-          firestore.collection(ProposalsInformation).add({
+          firestore.collection(Proposals).add({
             'Category': getCategory(),
             'EmployerProfile': userDocument['EmployerProfile'],
             'EmployerID': userid,

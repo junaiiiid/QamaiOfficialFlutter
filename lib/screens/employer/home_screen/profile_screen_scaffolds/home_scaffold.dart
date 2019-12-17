@@ -224,7 +224,7 @@ class EmployerHomeProgressReport extends StatelessWidget {
   Widget build(BuildContext context) {
     getUser();
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection(ProposalsInformation).snapshots(),
+      stream: firestore.collection(Proposals).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var userDocument = snapshot.data.documents;

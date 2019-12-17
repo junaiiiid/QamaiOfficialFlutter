@@ -9,7 +9,7 @@ import 'package:qamai_official/screens/employer/home_screen/home_screen_containe
 
 void ConductInterview(EmployeeID, EmployerID, ProposalID) async {
   DocumentReference docRef =
-      await firestore.collection(InterviewsInformation).add({
+  await firestore.collection(Interviews).add({
     'EmployeeID': EmployeeID,
     'EmployerID': EmployerID,
     'ProposalID': ProposalID,
@@ -17,7 +17,7 @@ void ConductInterview(EmployeeID, EmployerID, ProposalID) async {
       });
 
   DocumentReference proposals =
-  Firestore.instance.collection(ProposalsInformation).document(ProposalID);
+  Firestore.instance.collection(Proposals).document(ProposalID);
 
   proposals.get().then((datasnapshot) {
     if (datasnapshot.exists) {
@@ -29,7 +29,7 @@ void ConductInterview(EmployeeID, EmployerID, ProposalID) async {
         employer.get().then((datasnapshot) {
           if (datasnapshot.exists) {
             Firestore.instance
-                .collection(InterviewsInformation)
+                .collection(Interviews)
                 .document(docRef.documentID)
                 .collection('Chat')
                 .document()
@@ -46,7 +46,7 @@ void ConductInterview(EmployeeID, EmployerID, ProposalID) async {
         employer.get().then((datasnapshot) {
           if (datasnapshot.exists) {
             Firestore.instance
-                .collection(InterviewsInformation)
+                .collection(Interviews)
                 .document(docRef.documentID)
                 .collection('Chat')
                 .document()
@@ -65,7 +65,7 @@ void ConductInterview(EmployeeID, EmployerID, ProposalID) async {
     'Interviews': FieldValue.arrayUnion([docRef.documentID]),
   });
 
-  firestore.collection(ProposalsInformation).document(ProposalID).updateData({
+  firestore.collection(Proposals).document(ProposalID).updateData({
     'Interviews': FieldValue.arrayUnion([docRef.documentID]),
   });
 }
@@ -79,7 +79,7 @@ class InviteForInterviewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: Firestore.instance
-          .collection(ProposalsInformation)
+          .collection(Proposals)
           .document(ProposalID)
           .snapshots(),
       builder: (context, snapshot) {
@@ -152,7 +152,7 @@ class InterviewCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection(InterviewsInformation).snapshots(),
+      stream: firestore.collection(Interviews).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Widget> ChatContainers = [];

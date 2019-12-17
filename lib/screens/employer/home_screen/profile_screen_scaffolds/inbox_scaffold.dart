@@ -142,7 +142,7 @@ class SubmittedProposalsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection(ProposalsInformation).snapshots(),
+      stream: firestore.collection(Proposals).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final proposals = snapshot.data.documents;
@@ -212,7 +212,7 @@ class RecievedProposalsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection(ProposalsInformation).snapshots(),
+      stream: firestore.collection(Proposals).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final proposals = snapshot.data.documents;
@@ -316,7 +316,7 @@ class ViewCandidatesButton extends StatelessWidget {
 }
 
 void DeleteProposal(var docref) {
-  Firestore.instance.collection(ProposalsInformation).document(docref).delete();
+  Firestore.instance.collection(Proposals).document(docref).delete();
 }
 
 

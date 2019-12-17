@@ -9,6 +9,7 @@ import 'package:qamai_official/containers/widgets/button.dart';
 import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/chat_messages_form.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/form_textfields.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import '../../../../constants.dart';
 import '../../../../theme.dart';
@@ -91,7 +92,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   RelevantChatList(widget.InterviewID, widget.EmployeeID),
                   EvaluationList(
-                      widget.ProfilePicture, widget.CandidateDetails),
+                      widget.ProfilePicture, widget.CandidateDetails,
+                      widget.InterviewID, widget.EmployeeID),
                 ],
               ),
             ),
@@ -113,64 +115,6 @@ class ChatList extends StatelessWidget {
         ChatBottomWidget('Enter your message', (value) {
           setText(value);
         }, InterviewID, onSend),
-      ],
-    );
-  }
-}
-
-class EvaluationList extends StatelessWidget {
-  final ProfilePicture, Details;
-
-  EvaluationList(this.ProfilePicture, this.Details);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 20,
-        ),
-        Center(
-          child: ProfilePicture,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Center(
-          child: Details,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Divider(
-          color: QamaiThemeColor,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Button(
-          color: QamaiGreen,
-          text: 'ACCEPT',
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Button(
-          color: Red,
-          text: 'REJECT',
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        SmoothStarRating(
-            allowHalfRating: false,
-            onRatingChanged: (v) {},
-            starCount: 5,
-            rating: 3,
-            size: 40.0,
-            color: QamaiGreen,
-            borderColor: QamaiThemeColor,
-            spacing: 0.0),
       ],
     );
   }
@@ -420,7 +364,7 @@ class BubbleWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: firestore
-          .collection(InterviewsInformation)
+          .collection(Interviews)
           .document(InterviewID)
           .collection('Chat').orderBy('CreatedAt')
           .snapshots(),
@@ -480,7 +424,7 @@ void sendMessage(InterviewID, messageText, key) {
             if (datasnapshot.exists) {
               var employer = datasnapshot.data;
               firestore
-                  .collection(InterviewsInformation)
+                  .collection(Interviews)
                   .document(InterviewID)
                   .collection('Chat')
                   .add({
@@ -498,7 +442,7 @@ void sendMessage(InterviewID, messageText, key) {
             if (datasnapshot.exists) {
               var employer = datasnapshot.data;
               firestore
-                  .collection(InterviewsInformation)
+                  .collection(Interviews)
                   .document(InterviewID)
                   .collection('Chat')
                   .add({
@@ -518,7 +462,7 @@ void sendMessage(InterviewID, messageText, key) {
       if (datasnapshot.exists) {
         var user = datasnapshot.data;
         firestore
-            .collection(InterviewsInformation)
+            .collection(Interviews)
             .document(InterviewID)
             .collection('Chat')
             .add({
@@ -527,6 +471,182 @@ void sendMessage(InterviewID, messageText, key) {
           'CreatedAt': FieldValue.serverTimestamp(),
         });
       }
+    });
+  }
+}
+
+class EvaluationList extends StatelessWidget {
+  final ProfilePicture, Details, InterviewID, EmployeeID;
+
+  EvaluationList(this.ProfilePicture, this.Details, this.InterviewID,
+      this.EmployeeID);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: ProfilePicture,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: Details,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Divider(
+          color: QamaiThemeColor,
+        ),
+        EvaluationButtons(InterviewID, EmployeeID),
+      ],
+    );
+  }
+}
+
+class EvaluationButtons extends StatefulWidget {
+  final InterviewID, EmployeeID;
+
+  EvaluationButtons(this.InterviewID, this.EmployeeID);
+
+  @override
+  _EvaluationButtonsState createState() => _EvaluationButtonsState();
+}
+
+class _EvaluationButtonsState extends State<EvaluationButtons> {
+  @override
+  Widget build(BuildContext context) {
+    double rating = 0;
+    return StreamBuilder(
+      stream: Firestore.instance.collection(Interviews).document(
+          widget.InterviewID).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var document = snapshot.data;
+          if (document['Status'] == '') {
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                Button(
+                  color: QamaiGreen,
+                  text: 'ACCEPT',
+                  onpress: () {
+                    AcceptReject(widget.InterviewID, widget.EmployeeID, 1);
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Button(
+                  color: Red,
+                  text: 'REJECT',
+                  onpress: () {
+                    AcceptReject(widget.InterviewID, widget.EmployeeID, 2);
+                  },
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+              ],
+            );
+          }
+          if (document['Status'] == 'ACCEPTED') {
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                DisabledButton(
+                  color: LightGray,
+                  text: 'ACCEPTED',
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  'Please leave a rating once work is completed',
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    fontSize: 10,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    onRatingChanged: (v) {
+                      rating = v;
+                      setState(() {});
+                    },
+                    starCount: 5,
+                    rating: rating,
+                    size: 40.0,
+                    color: QamaiGreen,
+                    borderColor: QamaiThemeColor,
+                    spacing: 0.0),
+                EmployerFormTextFields('write a short review', (v) {}, 200),
+                SizedBox(
+                  height: 20,
+                ),
+                Button(
+                  color: QamaiThemeColor,
+                  text: 'SUBMIT',
+                  onpress: () {
+                    AcceptReject(widget.InterviewID, widget.EmployeeID, 2);
+                  },
+                ),
+              ],
+            );
+          }
+          if (document['Status'] == 'REJECTED') {
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                DisabledButton(
+                  color: LightGray,
+                  text: 'REJECTED',
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+              ],
+            );
+          }
+        }
+        return Center();
+      },
+    );
+  }
+}
+
+void AcceptReject(InterviewID, EmployeeID, key) {
+  if (key == 1) {
+    firestore.collection(Interviews).document(InterviewID).updateData({
+      'Status': 'ACCEPTED',
+    });
+
+    firestore.collection(Reviews).document(InterviewID).setData({
+      'Rating': '',
+      'Review': '',
+      'ID': EmployeeID,
+      'Interview': InterviewID,
+    });
+  }
+  else {
+    firestore.collection(Interviews).document(InterviewID).updateData({
+      'Status': 'REJECTED',
     });
   }
 }

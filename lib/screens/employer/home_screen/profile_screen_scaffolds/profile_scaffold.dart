@@ -115,7 +115,7 @@ Widget EmployerWork(var document) {
 
 
   return StreamBuilder<QuerySnapshot>(
-    stream: firestore.collection(ProposalsInformation).snapshots(),
+    stream: firestore.collection(Proposals).snapshots(),
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         final userdocument = snapshot.data.documents;

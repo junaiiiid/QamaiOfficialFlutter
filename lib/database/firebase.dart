@@ -424,7 +424,7 @@ Future AddJobs(Job) async {
     'JobList': FieldValue.arrayUnion([Job]),
   });
 
-  firestore.collection(ProposalsInformation).document(Job).updateData({
+  firestore.collection(Proposals).document(Job).updateData({
     'CandidateList': FieldValue.arrayUnion([userid]),
   });
 }
@@ -438,7 +438,7 @@ Future RemoveJobs(Job) async {
     'JobList': FieldValue.arrayRemove([Job]),
   });
 
-  firestore.collection(ProposalsInformation).document(Job).updateData({
+  firestore.collection(Proposals).document(Job).updateData({
     'CandidateList': FieldValue.arrayRemove([userid]),
   });
 }

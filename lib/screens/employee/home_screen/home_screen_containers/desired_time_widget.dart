@@ -38,7 +38,7 @@ class DesiredTimeWorkBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: firestore.collection(ProposalsInformation).snapshots(),
+        stream: firestore.collection(Proposals).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (time != null) {
