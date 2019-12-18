@@ -10,12 +10,14 @@ import 'package:qamai_official/database/firebase.dart';
 import 'package:qamai_official/database/firebase_data_reciever.dart';
 import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/chat_messages_form.dart';
 import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/form_textfields.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/rating_form.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import '../../../../constants.dart';
 import '../../../../theme.dart';
 
 final ScrollController scrollcontroller = ScrollController();
 final TextEditingController textcontroller = TextEditingController();
+double rating = 0;
 
 class ChatScreen extends StatefulWidget {
   final InterviewID, EmployeeID;
@@ -91,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
               body: TabBarView(
                 children: <Widget>[
                   RelevantChatList(widget.InterviewID, widget.EmployeeID),
-                  EvaluationList(
+                  RelevantEvaluationList(
                       widget.ProfilePicture, widget.CandidateDetails,
                       widget.InterviewID, widget.EmployeeID),
                 ],
@@ -166,6 +168,44 @@ class RelevantChatList extends StatelessWidget {
     );
   }
 }
+
+class RelevantEvaluationList extends StatelessWidget {
+
+  final ProfilePicture, Details, InterviewID, EmployeeID;
+
+  RelevantEvaluationList(this.ProfilePicture, this.Details, this.InterviewID,
+      this.EmployeeID);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: Firestore.instance
+          .collection(UserInformation)
+          .document(userid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data['ActiveProfile'] == 'Employer') {
+            return EmployerEvaluationList(
+                ProfilePicture, Details, InterviewID, EmployeeID);
+          } else {
+            return EmployeeEvaluationList(
+                ProfilePicture, Details, InterviewID, EmployeeID);
+          }
+        }
+        return ChatList(
+          InterviewID,
+          EmployeeID,
+              () {
+            sendMessage(InterviewID, getText(), 1);
+            textcontroller.clear();
+          },
+        );
+      },
+    );
+  }
+}
+
 
 class BubbleSender extends StatelessWidget {
   //BLUE BUBBLE
@@ -475,16 +515,16 @@ void sendMessage(InterviewID, messageText, key) {
   }
 }
 
-class EvaluationList extends StatelessWidget {
+
+class EmployerEvaluationList extends StatelessWidget {
   final ProfilePicture, Details, InterviewID, EmployeeID;
 
-  EvaluationList(this.ProfilePicture, this.Details, this.InterviewID,
+  EmployerEvaluationList(this.ProfilePicture, this.Details, this.InterviewID,
       this.EmployeeID);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: <Widget>[
         SizedBox(
           height: 20,
@@ -504,28 +544,23 @@ class EvaluationList extends StatelessWidget {
         Divider(
           color: QamaiThemeColor,
         ),
-        EvaluationButtons(InterviewID, EmployeeID),
+        EmployerEvaluationButtons(InterviewID, EmployeeID),
       ],
     );
   }
 }
 
-class EvaluationButtons extends StatefulWidget {
+class EmployerEvaluationButtons extends StatelessWidget {
+
   final InterviewID, EmployeeID;
 
-  EvaluationButtons(this.InterviewID, this.EmployeeID);
+  EmployerEvaluationButtons(this.InterviewID, this.EmployeeID);
 
-  @override
-  _EvaluationButtonsState createState() => _EvaluationButtonsState();
-}
-
-class _EvaluationButtonsState extends State<EvaluationButtons> {
   @override
   Widget build(BuildContext context) {
-    double rating = 0;
     return StreamBuilder(
       stream: Firestore.instance.collection(Interviews).document(
-          widget.InterviewID).snapshots(),
+          InterviewID).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var document = snapshot.data;
@@ -539,7 +574,7 @@ class _EvaluationButtonsState extends State<EvaluationButtons> {
                   color: QamaiGreen,
                   text: 'ACCEPT',
                   onpress: () {
-                    AcceptReject(widget.InterviewID, widget.EmployeeID, 1);
+                    AcceptReject(InterviewID, EmployeeID, 1);
                   },
                 ),
                 SizedBox(
@@ -549,7 +584,7 @@ class _EvaluationButtonsState extends State<EvaluationButtons> {
                   color: Red,
                   text: 'REJECT',
                   onpress: () {
-                    AcceptReject(widget.InterviewID, widget.EmployeeID, 2);
+                    AcceptReject(InterviewID, EmployeeID, 2);
                   },
                 ),
                 SizedBox(
@@ -571,40 +606,7 @@ class _EvaluationButtonsState extends State<EvaluationButtons> {
                 SizedBox(
                   height: 40,
                 ),
-                Text(
-                  'Please leave a rating once work is completed',
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                    fontSize: 10,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SmoothStarRating(
-                    allowHalfRating: false,
-                    onRatingChanged: (v) {
-                      rating = v;
-                      setState(() {});
-                    },
-                    starCount: 5,
-                    rating: rating,
-                    size: 40.0,
-                    color: QamaiGreen,
-                    borderColor: QamaiThemeColor,
-                    spacing: 0.0),
-                EmployerFormTextFields('write a short review', (v) {}, 200),
-                SizedBox(
-                  height: 20,
-                ),
-                Button(
-                  color: QamaiThemeColor,
-                  text: 'SUBMIT',
-                  onpress: () {
-                    AcceptReject(widget.InterviewID, widget.EmployeeID, 2);
-                  },
-                ),
+                EmployerReviewWidget(InterviewID, EmployeeID),
               ],
             );
           }
@@ -631,17 +633,328 @@ class _EvaluationButtonsState extends State<EvaluationButtons> {
   }
 }
 
+
+class EmployeeEvaluationList extends StatelessWidget {
+  final ProfilePicture, Details, InterviewID, EmployeeID;
+
+  EmployeeEvaluationList(this.ProfilePicture, this.Details, this.InterviewID,
+      this.EmployeeID);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: ProfilePicture,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: Details,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Divider(
+          color: QamaiThemeColor,
+        ),
+        EmployeeEvaluationButtons(InterviewID, EmployeeID),
+      ],
+    );
+  }
+}
+
+class EmployeeEvaluationButtons extends StatelessWidget {
+
+  final InterviewID, EmployeeID;
+
+  EmployeeEvaluationButtons(this.InterviewID, this.EmployeeID);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: Firestore.instance.collection(Interviews).document(
+          InterviewID).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var document = snapshot.data;
+          if (document['Status'] == '') {
+            return Center();
+          }
+          if (document['Status'] == 'ACCEPTED') {
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                DisabledButton(
+                  color: LightGray,
+                  text: 'ACCEPTED',
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                EmployeeReviewWidget(InterviewID, EmployeeID),
+              ],
+            );
+          }
+          if (document['Status'] == 'REJECTED') {
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                DisabledButton(
+                  color: LightGray,
+                  text: 'REJECTED',
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+              ],
+            );
+          }
+        }
+        return Center();
+      },
+    );
+  }
+}
+
+class EmployerReviewWidget extends StatefulWidget {
+  final InterviewID, EmployeeID;
+
+  EmployerReviewWidget(this.InterviewID, this.EmployeeID);
+
+  @override
+  _EmployerReviewWidgetState createState() => _EmployerReviewWidgetState();
+}
+
+class _EmployerReviewWidgetState extends State<EmployerReviewWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: Firestore.instance.collection(Reviews).document(
+          widget.InterviewID).collection('EmployeeReview').document(
+          widget.EmployeeID).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var document = snapshot.data;
+          if (document['Rating'] == '') {
+            return Column(
+              children: <Widget>[
+                Text(
+                  'Please leave a rating once work is completed',
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    fontSize: 10,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    onRatingChanged: (v) {
+                      rating = v;
+                      setRating(rating.toString());
+                      setState(() {});
+                    },
+                    starCount: 5,
+                    rating: rating,
+                    size: 40.0,
+                    color: QamaiGreen,
+                    borderColor: QamaiThemeColor,
+                    spacing: 0.0
+                ),
+                EmployerFormTextFields('write a short review', (v) {
+                  setReview(v);
+                }, 200),
+                SizedBox(
+                  height: 20,
+                ),
+                Button(
+                  color: QamaiThemeColor,
+                  text: 'SUBMIT',
+                  onpress: () {
+                    onRatingSubmit(widget.InterviewID, widget.EmployeeID, 1);
+                  },
+                ),
+              ],
+            );
+          }
+          else {
+            return Column(
+              children: <Widget>[
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    starCount: 5,
+                    rating: double.parse(document['Rating']),
+                    size: 40.0,
+                    color: QamaiGreen,
+                    borderColor: QamaiThemeColor,
+                    spacing: 0.0
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    document['Review'],
+                    style: TextStyle(
+                      fontFamily: 'Raleway',
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                    ),
+                    maxLines: 8,
+                  ),
+                ),
+              ],
+            );
+          }
+        }
+        return Center();
+      },
+    );
+  }
+}
+
+class EmployeeReviewWidget extends StatefulWidget {
+  final InterviewID, EmployeeID;
+
+  EmployeeReviewWidget(this.InterviewID, this.EmployeeID);
+
+  @override
+  _EmployeeReviewWidgetState createState() => _EmployeeReviewWidgetState();
+}
+
+class _EmployeeReviewWidgetState extends State<EmployeeReviewWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: Firestore.instance.collection(Reviews).document(
+          widget.InterviewID).collection('EmployerReview').document(
+          widget.EmployeeID).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var document = snapshot.data;
+          if (document['Rating'] == '') {
+            return Column(
+              children: <Widget>[
+                Text(
+                  'Please leave a rating once work is completed',
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    fontSize: 10,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    onRatingChanged: (v) {
+                      rating = v;
+                      setRating(rating.toString());
+                      setState(() {});
+                    },
+                    starCount: 5,
+                    rating: rating,
+                    size: 40.0,
+                    color: QamaiGreen,
+                    borderColor: QamaiThemeColor,
+                    spacing: 0.0
+                ),
+                EmployerFormTextFields('write a short review', (v) {
+                  setReview(v);
+                }, 200),
+                SizedBox(
+                  height: 20,
+                ),
+                Button(
+                  color: QamaiThemeColor,
+                  text: 'SUBMIT',
+                  onpress: () {
+                    onRatingSubmit(widget.InterviewID, widget.EmployeeID, 2);
+                  },
+                ),
+              ],
+            );
+          }
+          else {
+            return Column(
+              children: <Widget>[
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    starCount: 5,
+                    rating: double.parse(document['Rating']),
+                    size: 40.0,
+                    color: QamaiGreen,
+                    borderColor: QamaiThemeColor,
+                    spacing: 0.0
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    document['Review'],
+                    style: TextStyle(
+                      fontFamily: 'Raleway',
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                    ),
+                    maxLines: 8,
+                  ),
+                ),
+              ],
+            );
+          }
+        }
+        return Center();
+      },
+    );
+  }
+}
+
+
+void onRatingSubmit(InterviewID, EmployeeID, key) {
+  if (key == 1) {
+    Firestore.instance.collection(Reviews).document(InterviewID).collection(
+        'EmployeeReview').document(EmployeeID).updateData({
+      'Rating': getRating(),
+      'Review': getReview(),
+    });
+  }
+  else {
+    Firestore.instance.collection(Reviews).document(InterviewID).collection(
+        'EmployerReview').document(EmployeeID).updateData({
+      'Rating': getRating(),
+      'Review': getReview(),
+    });
+  }
+}
+
+
+
 void AcceptReject(InterviewID, EmployeeID, key) {
   if (key == 1) {
     firestore.collection(Interviews).document(InterviewID).updateData({
       'Status': 'ACCEPTED',
     });
 
-    firestore.collection(Reviews).document(InterviewID).setData({
+    firestore.collection(Reviews).document(InterviewID).collection(
+        'EmployerReview').document(userid).setData({
       'Rating': '',
       'Review': '',
-      'ID': EmployeeID,
-      'Interview': InterviewID,
+    });
+
+    firestore.collection(Reviews).document(InterviewID).collection(
+        'EmployeeReview').document(EmployeeID).setData({
+      'Rating': '',
+      'Review': '',
     });
   }
   else {
@@ -650,3 +963,6 @@ void AcceptReject(InterviewID, EmployeeID, key) {
     });
   }
 }
+
+
+

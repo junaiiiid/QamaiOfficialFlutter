@@ -10,6 +10,7 @@ import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaff
 import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/profile_overview.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/review_cards.dart';
 
 import '../../../../theme.dart';
 import 'inbox_scaffold.dart';
@@ -68,7 +69,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
             children: <Widget>[
               EmployerDetailsList(),
               EmployerWork(userid),
-              ReviewsList(),
+              EmployerReviews(userid),
             ],
           ),
         ),
@@ -346,30 +347,7 @@ class EmployerDetailsList extends StatelessWidget {
                     });
                   })),
         ),
-        FlatButton(
-          padding: EdgeInsets.all(0),
-          child: Card(
-              color: QamaiGreen,
-              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: ListTile(
-                leading: Icon(OMIcons.phoneLocked,
-                    color: QamaiThemeColor, size: 20.0),
-                title: AutoSizeText(
-                  'Verify Phone Number',
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      color: QamaiThemeColor,
-                      fontSize: 15.0),
-                  maxLines: 1,
-                  maxFontSize: 15,
-                  minFontSize: 9,
-                ),
-              )),
-          onPressed: () {
-            PhoneVerification(context);
-          },
-        ),
+        NumberVerifyButton(),
         FlatButton(
           padding: EdgeInsets.all(0),
           child: Card(
@@ -754,5 +732,9 @@ class EmployerDescriptionWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 

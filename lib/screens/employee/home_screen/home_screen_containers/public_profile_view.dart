@@ -4,6 +4,7 @@ import 'package:qamai_official/constants.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/review_cards.dart';
 import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 
@@ -73,7 +74,7 @@ class PublicProfilePeople extends StatelessWidget {
               body: TabBarView(
                 children: <Widget>[
                   EmployeeWork(userID),
-                  ReviewsList(),
+                  EmployeeReviews(userID),
                 ],
               ),
             ),
@@ -222,7 +223,7 @@ class PublicProfileJobs extends StatelessWidget {
                 children: <Widget>[
                   JobList(data: data,),
                   EmployerWork(userID),
-                  ReviewsList(),
+                  EmployerReviews(userID),
                 ],
               ),
             ),
@@ -433,7 +434,7 @@ class PublicProfileInternship extends StatelessWidget {
                 children: <Widget>[
                   InternshipList(data: data,),
                   EmployerWork(userID),
-                  ReviewsList(),
+                  EmployerReviews(userID),
                 ],
               ),
             ),

@@ -249,7 +249,7 @@ class InterviewChatContainers extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
-                      OMIcons.verifiedUser,
+                      OMIcons.mailOutline,
                       size: 30,
                       color: QamaiGreen,
                     ),
@@ -275,7 +275,7 @@ class InterviewChatProfilePicture extends StatelessWidget {
     return StreamBuilder(
       stream: Firestore.instance
           .collection(collection)
-          .document(document)
+          .document(document.toString())
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {

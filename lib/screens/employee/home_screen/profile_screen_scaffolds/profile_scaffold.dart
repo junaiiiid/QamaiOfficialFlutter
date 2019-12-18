@@ -9,6 +9,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:qamai_official/containers/widgets/error_alerts.dart';
 import 'package:qamai_official/database/phone_and_email.dart';
 import 'package:qamai_official/screens/employee/home_screen/home_screen_containers/sent_widgets.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/review_cards.dart';
+import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 import '../../../../theme.dart';
 
@@ -71,7 +73,7 @@ class _ProfileState extends State<Profile> {
             children: <Widget>[
               ProfileList(),
               EmployeeWork(userid),
-              ReviewsList(),
+              EmployeeReviews(userid),
             ],
           ),
         ),
@@ -80,40 +82,7 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-class ReviewsList extends StatelessWidget {
-  const ReviewsList({
-    Key key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Card(
-            color: QamaiGreen,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: ListTile(
-              leading:
-              Icon(OMIcons.starBorder, color: QamaiThemeColor, size: 20.0),
-              title: AutoSizeText(
-                'No Reviews Yet',
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    color: QamaiThemeColor,
-                    fontSize: 15.0),
-                maxLines: 1,
-                maxFontSize: 15,
-                minFontSize: 9,
-              ),
-            )),
-        SizedBox(
-          height: 20,
-        ),
-      ],
-    );
-  }
-}
 
 class WorkList extends StatelessWidget {
   const WorkList({
@@ -252,30 +221,7 @@ class _ProfileListState extends State<ProfileList> {
                     });
                   })),
         ),
-        FlatButton(
-          padding: EdgeInsets.all(0),
-          child: Card(
-              color: QamaiGreen,
-              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: ListTile(
-                leading: Icon(OMIcons.phoneLocked,
-                    color: QamaiThemeColor, size: 20.0),
-                title: AutoSizeText(
-                  'Verify Phone Number',
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      color: QamaiThemeColor,
-                      fontSize: 15.0),
-                  maxLines: 1,
-                  maxFontSize: 15,
-                  minFontSize: 9,
-                ),
-              )),
-          onPressed: () {
-            PhoneVerification(widget.buildcontext);
-          },
-        ),
+        NumberVerifyButton(),
         FlatButton(
           padding: EdgeInsets.all(0),
           child: Card(
@@ -307,7 +253,7 @@ We'll review your request and change your information accordingly.''',
                   'images/info.png',
                 ), () {
               sendMail();
-              Navigator.of(widget.buildcontext).pop();
+              Navigator.of(context).pop();
             });
           },
         ),
@@ -318,3 +264,52 @@ We'll review your request and change your information accordingly.''',
     );
   }
 }
+
+class NumberVerifyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: Firestore.instance.collection(UserInformation)
+          .document(userid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data['NumberVerified'] == false)
+            return FlatButton(
+              padding: EdgeInsets.all(0),
+              child: Card(
+                  color: QamaiGreen,
+                  margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                  child: ListTile(
+                    leading: Icon(OMIcons.phoneLocked,
+                        color: QamaiThemeColor, size: 20.0),
+                    title: AutoSizeText(
+                      'Verify Phone Number',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          color: QamaiThemeColor,
+                          fontSize: 15.0),
+                      maxLines: 1,
+                      maxFontSize: 15,
+                      minFontSize: 9,
+                    ),
+                  )),
+              onPressed: () {
+                PhoneVerification(context);
+              },
+            );
+          else {
+            return SizedBox(
+              height: 0,
+            );
+          }
+        }
+        return SizedBox(
+          height: 0,
+        );
+      },
+    );
+  }
+}
+

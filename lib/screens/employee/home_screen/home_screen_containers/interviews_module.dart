@@ -21,7 +21,7 @@ class EmployeeInterviewCardsList extends StatelessWidget {
               var CandidateDetails = StreamBuilder(
                 stream: Firestore.instance
                     .collection(UserInformation)
-                    .document(interview.data['EmployeeID'])
+                    .document(interview.data['EmployerID'])
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -49,18 +49,18 @@ class EmployeeInterviewCardsList extends StatelessWidget {
               var ChatProfilePicture = StreamBuilder(
                 stream: Firestore.instance
                     .collection(UserInformation)
-                    .document(interview.data['EmployeeID'])
+                    .document(interview.data['EmployerID'])
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var userDocument = snapshot.data;
                     if (userDocument['EmployerProfile'] == 'Internship') {
                       return InterviewChatProfilePicture(
-                          InternshipInformation, interview.data['EmployeeID']);
+                          InternshipInformation, interview.data['EmployerID']);
                     } else {
                       {
                         return InterviewChatProfilePicture(
-                            WorkInformation, interview.data['EmployeeID']);
+                            WorkInformation, interview.data['EmployerID']);
                       }
                     }
                   }
@@ -77,7 +77,7 @@ class EmployeeInterviewCardsList extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ChatScreen(
                             interview.documentID,
-                            interview.data['EmployeeID'],
+                            interview.data['EmployerID'],
                             ChatProfilePicture,
                             CandidateDetails)),
                   );

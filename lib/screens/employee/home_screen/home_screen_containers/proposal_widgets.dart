@@ -10,6 +10,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/inbox_scaffold.dart';
 import 'package:qamai_official/screens/employee/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
+import 'package:qamai_official/screens/employer/home_screen/home_screen_containers/review_cards.dart';
+import 'package:qamai_official/screens/employer/home_screen/profile_screen_scaffolds/profile_scaffold.dart';
 
 //PROPOSALS
 
@@ -275,7 +277,7 @@ class ProposalProfile extends StatelessWidget {
                     data: data,
                     button: button,
                   ),
-                  ReviewsList(),
+                  NoReviews(),
                 ],
               ),
             ),

@@ -135,7 +135,7 @@ Future LogIn(BuildContext context) async {
         .user;
     if (user.isEmailVerified) {
       //Navigator.pushNamed(context, HomeScreen.id);
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => RelevantHomeScreen()),
       );
