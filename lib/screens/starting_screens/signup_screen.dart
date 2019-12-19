@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qamai_official/containers/modules/user_information.dart';
-import 'package:qamai_official/containers/widgets/error_alerts.dart';
-import 'package:qamai_official/containers/widgets/text_inputs.dart';
-import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/containers/widgets/button.dart';
+import 'package:qamai_official/modules/setget/user_setget.dart';
+import 'package:qamai_official/modules/strings/other_strings.dart';
+import 'package:qamai_official/modules/themes/colors.dart';
+import 'package:qamai_official/widgets/error_alerts.dart';
+import 'package:qamai_official/widgets/text_inputs.dart';
+import 'package:qamai_official/widgets/button.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:qamai_official/containers/modules/regular_expression.dart';
+import 'package:qamai_official/modules/strings/regular_expression.dart';
 import 'signup_screen2.dart';
 import 'package:gender_selector/gender_selector.dart';
 

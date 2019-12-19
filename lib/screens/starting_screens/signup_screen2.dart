@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qamai_official/containers/widgets/text_inputs.dart';
-import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/containers/widgets/button.dart';
+import 'package:qamai_official/modules/strings/other_strings.dart';
+import 'package:qamai_official/modules/themes/colors.dart';
+import 'package:qamai_official/widgets/error_alerts.dart';
+import 'package:qamai_official/widgets/text_inputs.dart';
+import 'package:qamai_official/widgets/button.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:qamai_official/containers/modules/regular_expression.dart';
-import 'package:qamai_official/containers/modules/user_information.dart';
-import 'package:qamai_official/containers/widgets/error_alerts.dart';
-import 'package:qamai_official/database/firebase.dart';
+import 'package:qamai_official/modules/strings/regular_expression.dart';
+import 'package:qamai_official/modules/setget/user_setget.dart';
+import 'package:qamai_official/database/firebase_employee.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 String PasswordMatcher;
@@ -49,7 +50,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 80.0, right: 80.0),
                       child: TextInput(
-                        hint: Email,
+                        hint: email,
                         passtext: false,
                         keyboard: TextInputType.emailAddress,
                         Max: 62,

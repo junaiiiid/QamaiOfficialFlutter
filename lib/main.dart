@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qamai_official/database/firebase.dart';
-import 'package:qamai_official/database/firebase_data_reciever.dart';
+import 'package:qamai_official/screens/employer_employee_screens/employee_screens/home_screen.dart';
+import 'database/firebase_employer.dart';
+import 'modules/themes/theme.dart';
 import 'screens/starting_screens/splash_screen.dart';
 import 'screens/starting_screens/welcome_screen.dart';
 import 'screens/starting_screens/login_screen.dart';
 import 'screens/starting_screens/forgot_password.dart';
 import 'screens/starting_screens/signup_screen.dart';
 import 'screens/starting_screens/signup_screen2.dart';
-import 'screens/employee/home_screen/home_screen.dart';
-import 'theme.dart';
 import 'package:provider/provider.dart';
 
 

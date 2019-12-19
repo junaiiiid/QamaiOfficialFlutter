@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:qamai_official/database/firebase.dart';
+import 'package:qamai_official/database/firebase_employee.dart';
+import 'package:qamai_official/modules/strings/other_strings.dart';
+import 'package:qamai_official/modules/themes/colors.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:qamai_official/constants.dart' as prefix0;
 import 'package:flutter/material.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 import 'package:flutter_otp/flutter_otp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,7 +25,6 @@ void sendMail() async{
 
 void PhoneVerification(BuildContext buildcontext) async{
 
-  int code;
 
   FlutterOtp object=FlutterOtp();
 
@@ -34,7 +33,7 @@ void PhoneVerification(BuildContext buildcontext) async{
   FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
   DocumentReference documentReference =
-  Firestore.instance.collection(prefix0.UserInformation).document(user.uid);
+  Firestore.instance.collection(UserInformation).document(user.uid);
   documentReference.get().then((datasnapshot) {
     object.sendOtp(datasnapshot.data['Phone']);
     print(datasnapshot.data['Phone']);
@@ -43,7 +42,10 @@ void PhoneVerification(BuildContext buildcontext) async{
 
   Alert(
       style: AlertStyle(animationType: AnimationType.grow,overlayColor: Colors.white54,isCloseButton: false,
-          titleStyle: TextStyle(color: prefix0.QamaiThemeColor,fontFamily: 'Montserrat',fontWeight: FontWeight.w800,fontSize: 15)),
+          titleStyle: TextStyle(color: QamaiThemeColor,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w800,
+              fontSize: 15)),
       context: buildcontext,
       title: 'Number Verification',
       image: Image.asset('images/lock.jpg',width: 200,),
@@ -53,7 +55,7 @@ void PhoneVerification(BuildContext buildcontext) async{
             'Enter SMS verification code',
             textAlign: TextAlign.center,
             style: TextStyle(
-                color: prefix0.QamaiThemeColor,
+                color: QamaiThemeColor,
                 fontFamily: 'Montserrat',
                 fontSize: 14.0,
                 fontWeight: FontWeight.w600),
@@ -63,8 +65,11 @@ void PhoneVerification(BuildContext buildcontext) async{
             autoFocus: true,
             pinLength: 4,
             decoration: BoxTightDecoration(
-              strokeColor: prefix0.QamaiGreen,
-              textStyle: TextStyle(color: prefix0.QamaiThemeColor,fontFamily: 'Raleway',fontWeight: FontWeight.w600,fontSize: 14),
+              strokeColor: QamaiGreen,
+              textStyle: TextStyle(color: QamaiThemeColor,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14),
             ),
             onSubmit: (value){
               if(object.resultChecker(int.parse(value))==true)
@@ -78,15 +83,15 @@ void PhoneVerification(BuildContext buildcontext) async{
                 Alert(
                   style: AlertStyle(
                     animationType: AnimationType.grow,
-                    backgroundColor: prefix0.White,
+                    backgroundColor: White,
                     titleStyle: TextStyle(
-                      color: prefix0.QamaiThemeColor,
+                      color: QamaiThemeColor,
                       fontFamily: 'Montserrat',
                       fontSize: 18.0,
                       fontWeight: FontWeight.w800,
                     ),
                     descStyle: TextStyle(
-                      color: prefix0.QamaiThemeColor,
+                      color: QamaiThemeColor,
                       fontFamily: 'Montserrat',
                       fontSize: 14.0,
                       fontWeight: FontWeight.w600,
@@ -102,7 +107,7 @@ void PhoneVerification(BuildContext buildcontext) async{
                       child: Text(
                         "Okay",
                         style: TextStyle(
-                          color: prefix0.White,
+                          color: White,
                           fontSize: 14,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.w600,
@@ -110,7 +115,7 @@ void PhoneVerification(BuildContext buildcontext) async{
                       ),
                       onPressed: () => Navigator.pop(buildcontext),
                       width: 120,
-                      color: prefix0.QamaiGreen,
+                      color: QamaiGreen,
                     )
                   ],
                 ).show();

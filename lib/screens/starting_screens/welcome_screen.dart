@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:qamai_official/containers/widgets/image_slider.dart';
-import 'package:qamai_official/constants.dart';
-import 'package:qamai_official/containers/widgets/button.dart';
-import '../../theme.dart';
+import 'package:qamai_official/modules/strings/other_strings.dart';
+import 'package:qamai_official/modules/themes/colors.dart';
+import 'package:qamai_official/modules/themes/theme.dart';
+import 'package:qamai_official/widgets/image_slider.dart';
+import 'package:qamai_official/widgets/button.dart';
 import 'login_screen.dart';
 import 'signup_screen.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 
 
