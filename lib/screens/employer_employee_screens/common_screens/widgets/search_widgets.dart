@@ -212,7 +212,7 @@ class DesiredTimeWorkFields extends StatelessWidget {
             ),
             Container(
               child: DesiredTimeInput('', (value) {
-                setTimestart(value);
+                setSearchTimestart(value);
               }, 7),
               width: 100,
             ),
@@ -229,7 +229,7 @@ class DesiredTimeWorkFields extends StatelessWidget {
             ),
             Container(
               child: DesiredTimeInput('', (value) {
-                setTimeend(value);
+                setSearchTimeend(value);
               }, 7),
               width: 100,
             ),

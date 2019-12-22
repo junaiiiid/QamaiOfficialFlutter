@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:qamai_official/modules/setget/proposal_setget.dart';
+import 'package:qamai_official/modules/setget/timed_search_setget.dart';
 import 'package:qamai_official/modules/themes/colors.dart';
 import 'package:qamai_official/modules/themes/theme.dart';
 import 'package:qamai_official/screens/employer_employee_screens/common_screens/widgets/search_widgets.dart';
@@ -139,7 +139,8 @@ class _MySearchBarState extends State<MySearchBar> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DesiredTimeWorkBack(getTime())),
+                      builder: (context) =>
+                          DesiredTimeWorkBack(getSearchTime())),
                 );
               },),
             ],

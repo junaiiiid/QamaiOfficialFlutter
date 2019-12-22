@@ -1,14 +1,14 @@
 String _Timestart;
 String _Timeend;
 
-void setTimestart(String timestart) {
+void setSearchTimestart(String timestart) {
   _Timestart = timestart;
 }
 
-void setTimeend(String timeend) {
+void setSearchTimeend(String timeend) {
   _Timeend = timeend;
 }
 
-String getTime() {
+String getSearchTime() {
   return '$_Timestart to $_Timeend';
 }
